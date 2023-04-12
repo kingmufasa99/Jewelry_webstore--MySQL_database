@@ -31,12 +31,15 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbar">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" id="home" href="/">Page principale</a>
-                <a class="nav-item nav-link" id="signUp" href="/S'inscrire">S'inscrire</a>
+                <a class="nav-item nav-link" id="signup" data-toggle="modal" data-target="#signupModal" href="#">S'inscrire</a>
                 <a class="nav-item nav-link" id="login" data-toggle="modal" data-target="#loginModal" href="#">Se connecter</a>
-                <a class="nav-item nav-link" id="logout" href="/Se-deconnecter">Se deconnecter</a>
+                <a class="nav-item nav-link" id="logout" href="Se-deconnecter">Se deconnecter</a>
             </div>
         </div>
     </nav>
+
+    <!-- LOGIN -->
+
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -47,11 +50,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <!--AJOUTER DES ALERTES
-                                            + alerte champ non-remplis
-                                            + alerte champs incorrect
-
-            -->
+            <!--AJOUTER DES ALERTES-->
             <form method="post" action="login.php">
               <div class="form-group">
                 <label for="email">Adresse courriel</label>
@@ -68,6 +67,47 @@
       </div>
     </div>
 
+    <!-- SIGNUP -->
+
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="signupModalLabel">S'inscrire</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!--AJOUTER DES ALERTES-->
+            <form method="post" action="signup.php">
+              <div class="form-group">
+                <label for="name">Nom de famille</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Entrer votre nom de famille">
+              </div>
+              <div class="form-group">
+                <label for="name">Nom </label>
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Entrer votre prénom">
+              </div>
+              <div class="form-group">
+                <label for="email">Adresse courriel</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Entrer votre adresse courriel">
+              </div>
+              <div class="form-group">
+                <label for="adress">Adresse de domicile </label>
+                <input type="text" class="form-control" id="adress" name="adress" placeholder="Entrer votre adresse de domicile">
+              </div>
+              <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Entrer votre mot de passe">
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
 
 
 <!--LIBRAIRIES UTILISÉS-->

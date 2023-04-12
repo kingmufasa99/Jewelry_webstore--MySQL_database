@@ -38,16 +38,28 @@ def Connexion():
 	if client:
 		hashed_password = client[0].encode('utf-8')
 		if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
-			return make_response("", 200)
+			return make_response("accueil.html", 200)
 		else:
-			return make_response("Moitié marche", 404)
+			return make_response("", 404)
+
 	else:
-		return make_response("Rien ne marche", 404)
+		return make_response("", 404)
 
 
 @app.route("/api/Inscription", methods=['POST'])
 def Inscription():
-	pass
+	email = request.form.get('email')
+	password = request.form.get('password')
+	lastname = request.form.get('lastname')
+	firstname = request.form.get('firstname')
+	adress = request.form.get('adress')
+
+	# Cryptage du mot de passe
+	hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+	inscription = "INSERT INTO Clients VALUES (%s,%s,%s,%s,%s)"
+
+	# Réponse HTTP
+	return make_response("accueil.html", 200)
 
 
 @app.route("/api/Deconnexion", methods=['POST'])
