@@ -22,8 +22,10 @@
 
     <title>La Boîte à Bijoux</title>
 </head>
-
 <body>
+
+    <!-- BARRE DE NAVIGATION EN HAUT -->
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
             <span class="navbar-toggler-icon"></span>
@@ -31,10 +33,14 @@
         <h1 class="logo">La Boîte à Bijoux</h1>
         <div class="collapse navbar-collapse justify-content-end" id="navbar">
             <div class="navbar-nav">
+                <form>
+                    <input id="searchbar" onkeyup="search()" type="text" name="search" placeholder="Recherche...">
+                    <button type="submit">Rechercher</button>
+                </form>
                 <a class="nav-item nav-link" id="home" href="/">Page principale</a>
                 <a class="nav-item nav-link" id="signup" data-toggle="modal" data-target="#signupModal" href="#">S'inscrire</a>
                 <a class="nav-item nav-link" id="login" data-toggle="modal" data-target="#loginModal" href="#">Se connecter</a>
-                <a class="nav-item nav-link" id="logout" href="Se-deconnecter">Se deconnecter</a>
+                <a class="nav-item nav-link" id="logout" href="{{ url_for('Deconnexion') }}">Se deconnecter</a>
             </div>
         </div>
     </nav>
@@ -46,14 +52,13 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="modal-title" id="loginModalLabel">Se connecter</h3>
+            <h3 class="modal-title" id="loginModalLabel">Connexion</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <!--AJOUTER DES ALERTES-->
-            <form method="post" action="login.php">
+            <form id="loginForm" method="POST">
               <div class="form-group">
                 <label for="email">Adresse courriel</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Entrer votre adresse courriel">
@@ -75,7 +80,7 @@
     <table class="table table-hover table-dark" id="table">
         <thead>
             <tr>
-                <th scope="col">ID</th>
+                <th scope="col">Acheter</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Description</th>
                 <th scope="col">Prix</th>
@@ -83,17 +88,47 @@
             </tr>
         </thead>
         <tbody>
-             {% for product in products %}
+             {% for col in products %}
                 <tr>
-                    <td>{{ product[0] }}</td>
-                    <td>{{ product[1] }}</td>
-                    <td>{{ product[2] }}</td>
-                    <td>{{ product[3] }}</td>
-                    <td>{{ product[4] }}</td>
+                    <td>{% if col[4] != 0 %}<a href="BUY"><button>Ajouter au panier</button></a>{% else %}Rupture de stock{% endif %}</td>
+                    <td>{{ col[1] }}</td>
+                    <td>{{ col[2] }}</td>
+                    <td>{{ col[3] }}</td>
+                    <td>{{ col[4] }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <!--BARRE DE RECHERCHE-->
+
+    <script>
+    function search() {
+        var input = document.getElementById("searchbar");
+        var upper = input.value.toUpperCase();
+        var collonne = document.getElementById("table").getElementsByTagName("tr");
+
+          for (var i = 0; i < collonne.length; i++) {
+            var elements = collonne[i].getElementsByTagName("td");
+            var valide = false;
+            for (var j = 0; j < elements.length; j++) {
+              var element = elements[j];
+              if (element) {
+                var text = element.textContent || element.innerText;
+                if (text.toUpperCase().indexOf(upper) > -1) {
+                  valide = true;
+                  break;
+                }
+              }
+            }
+            collonne[i].style.display = valide ? "" : "none";
+          }
+        }
+        document.querySelector("form").addEventListener("submit", function(e) {
+          e.preventDefault();
+          search();
+    });
+    </script>
 
     <!-- SIGNUP -->
 
@@ -108,18 +143,18 @@
           </div>
           <div class="modal-body">
             <!--AJOUTER DES ALERTES-->
-            <form method="post" action="signup.php">
+            <form id="signupForm" method="POST">
               <div class="form-group">
-                <label for="name">Nom de famille</label>
+                <label for="lastname">Nom de famille</label>
                 <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Entrer votre nom de famille">
               </div>
               <div class="form-group">
-                <label for="name">Nom </label>
+                <label for="firstname">Nom </label>
                 <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Entrer votre prénom">
               </div>
               <div class="form-group">
                 <label for="email">Adresse courriel</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Entrer votre adresse courriel">
+                <input type="email" class="form-control" id="new_email" name="email" placeholder="Entrer votre adresse courriel">
               </div>
               <div class="form-group">
                 <label for="adress">Adresse de domicile </label>
@@ -127,7 +162,7 @@
               </div>
               <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Entrer votre mot de passe">
+                <input type="password" class="form-control" id="new_password" name="password" placeholder="Entrer votre mot de passe">
               </div>
               <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
             </form>
@@ -135,8 +170,6 @@
         </div>
       </div>
     </div>
-    
-
 
 <!--LIBRAIRIES UTILISÉS-->
 

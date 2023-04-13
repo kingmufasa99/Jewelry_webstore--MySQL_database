@@ -10,7 +10,7 @@
         alert("Connexion réussie !");
         window.location.href = "/"; // Redirect to homepage
         $('#loginModal').modal('hide');
-        $('#login').hide();
+        $('#loginModal').hide();
         $('#logout').show();
       },
       error: function(data) {
@@ -50,4 +50,5 @@
       }
     });
   });
+
 

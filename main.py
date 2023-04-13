@@ -21,7 +21,7 @@ mycursor = mydb.cursor()
 def Accueil():
 	sql = "SELECT * FROM Produits"
 	mycursor.execute(sql)
-	products = mycursor.fetchmany(size=2)
+	products = mycursor.fetchmany(size=5)
 	return render_template('accueil.html', products=products)
 
 
@@ -33,7 +33,7 @@ def Connexion():
 	pwd = "SELECT MotDePasse FROM Clients WHERE AdresseEmail = %s"
 	val = (email,)
 	mycursor.execute(pwd, val)
-	client = mycursor.fetchone()
+	client = mycursor.fetchmany()
 
 	if client:
 		hashed_password = client[0].encode('utf-8')
@@ -48,18 +48,23 @@ def Connexion():
 
 @app.route("/api/Inscription", methods=['POST'])
 def Inscription():
-	email = request.form.get('email')
-	password = request.form.get('password')
-	lastname = request.form.get('lastname')
-	firstname = request.form.get('firstname')
-	adress = request.form.get('adress')
+    email = request.form.get('new_email')
+    password = request.form.get('new_password')
+    lastname = request.form.get('lastname')
+    firstname = request.form.get('firstname')
+    address = request.form.get('address')
 
-	# Cryptage du mot de passe
-	hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-	inscription = "INSERT INTO Clients VALUES (%s,%s,%s,%s,%s)"
+    # Cryptage du mot de passe
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    inscription = "INSERT INTO Clients VALUES (%s,%s,%s,%s,%s)"
+    val = (email, hashed_password, lastname, firstname, address)
 
-	# Réponse HTTP
-	return make_response("accueil.html", 200)
+    mycursor.execute(inscription, val)
+    mydb.commit()
+
+    # Réponse HTTP
+    return make_response("accueil.html", 200)
+
 
 
 @app.route("/api/Deconnexion", methods=['POST'])
