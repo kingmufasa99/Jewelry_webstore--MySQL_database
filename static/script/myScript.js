@@ -33,4 +33,17 @@
     });
   });
 
+  function search() {
+    let input = document.getElementById('searchbar').value
+    input=input.toLowerCase();
+    let table = document.getElementById('table');
 
+    for (i = 0; i < table.length; i++) {
+        if (!table[i].innerHTML.toLowerCase().includes(input)) {
+            table[i].style.display="none";
+        }
+        else {
+            table[i].style.display="list-item";
+        }
+    }
+}

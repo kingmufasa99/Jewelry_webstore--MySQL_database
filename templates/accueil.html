@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        .logo{
-            color: whitesmoke;
-        }
-    </style>
+    <style src="..static/styles/myMap.css"></style>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -30,10 +26,14 @@
         <h1 class="logo">La Boîte à Bijoux</h1>
         <div class="collapse navbar-collapse justify-content-end" id="navbar">
             <div class="navbar-nav">
+                <form>
+                    <input id="searchbar" onkeyup="search()" type="text" placeholder="Recherche...">
+                    <button type="submit">Rechercher</button>
+                </form>
                 <a class="nav-item nav-link" id="home" href="/">Page principale</a>
-                <a class="nav-item nav-link" id="signUp" href="/S'inscrire">S'inscrire</a>
+                <a class="nav-item nav-link" id="signUp" href="/Inscription" onclick="inscription()">S'inscrire</a>
                 <a class="nav-item nav-link" id="login" data-toggle="modal" data-target="#loginModal" href="#">Se connecter</a>
-                <a class="nav-item nav-link" id="logout" href="/Se-deconnecter">Se deconnecter</a>
+                <a class="nav-item nav-link" id="logout" href="{{ url_for('Deconnexion') }}">Se deconnecter</a>
             </div>
         </div>
     </nav>
@@ -67,7 +67,29 @@
         </div>
       </div>
     </div>
-
+    <br/>
+    <table class="table table-hover table-dark" id="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Description</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+             {% for product in products %}
+                <tr>
+                    <td>{{ product[0] }}</td>
+                    <td>{{ product[1] }}</td>
+                    <td>{{ product[2] }}</td>
+                    <td>{{ product[3] }}</td>
+                    <td>{{ product[4] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 
 <!--LIBRAIRIES UTILISÉS-->
