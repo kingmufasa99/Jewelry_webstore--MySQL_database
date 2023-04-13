@@ -71,26 +71,6 @@ def rechercheProduit():
      pass
 
 
-@app.route("/Recherche")
-def Recherche():
-    # params = []
-    # mycursor.callproc("selection_produits")
-    pass
-
-
-@app.route("/api/ajouterPanier", methods=['POST'])
-def ajouterPanier():
-    # try:
-    #     produit_id = int(request.form['produit_id'])
-    #     user_id = int(request.form['user_id'])
-    #     mycursor.execute("INSERT INTO Commandes (ID_Produit, ID_Client) VALUES (%s, %s)", (produit_id, user_id))
-    #     mydb.commit()
-    #     return make_response(jsonify({'message': 'Produit ajouté au panier'}), 200)
-    # except:
-    #     return make_response(jsonify({'error': 'Failed to add product to cart'}), 500)
-    pass
-
-
 @app.route("/api/supprimerPanier", methods=['POST'])
 def supprimerPanier():
     # try:
