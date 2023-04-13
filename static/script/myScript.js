@@ -8,6 +8,7 @@
       data: {email: email, password: password},
       success: function(data) {
         alert("Connexion réussie !");
+        window.location.href = "/"; // Redirect to homepage
         $('#loginModal').modal('hide');
         $('#login').hide();
         $('#logout').show();
@@ -49,5 +50,4 @@
       }
     });
   });
-
 

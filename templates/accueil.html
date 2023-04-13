@@ -22,6 +22,7 @@
 
     <title>La Boîte à Bijoux</title>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -38,11 +39,6 @@
         </div>
     </nav>
     <h2>Liste des Produits:</h2>
-    <ul>
-    {% for i in products %}
-        <li>{{ i[1] }} - {{ i[2] }} €</li>
-    {% endfor %}
-    </ul>
 
     <!-- LOGIN -->
 
@@ -72,6 +68,32 @@
         </div>
       </div>
     </div>
+
+    <!-- LISTE DE PRODUITS -->
+
+    <br/>
+    <table class="table table-hover table-dark" id="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Description</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+             {% for product in products %}
+                <tr>
+                    <td>{{ product[0] }}</td>
+                    <td>{{ product[1] }}</td>
+                    <td>{{ product[2] }}</td>
+                    <td>{{ product[3] }}</td>
+                    <td>{{ product[4] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <!-- SIGNUP -->
 

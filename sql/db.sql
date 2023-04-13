@@ -71,7 +71,19 @@ VALUES
 INSERT INTO Categories (ID_Categorie, NomCategorie)
 VALUES (1, 'Bague');
 
+INSERT INTO Produits (ID_Produit, NomProduit, Description, Prix, Stockdisponible, ID_Categorie)
+VALUES (1, 'Bague en or blanc et diamant', 'Bague en or blanc 18 carats sertie d''un diamant de qualité supérieure.', 1499.99, 10, 1);
 
+INSERT INTO Produits (ID_Produit, NomProduit, Description, Prix, Stockdisponible, ID_Categorie)
+VALUES (2, 'Collier en argent et perles de culture', 'Collier en argent sterling 925 avec des perles de culture d''eau douce. Parfait pour un style décontracté ou pour les occasions spéciales.', 299.99, 20, 2);
+
+INSERT INTO Categories (ID_Categorie, NomCategorie)
+VALUES (1, 'Bague');
+
+INSERT INTO Categories (ID_Categorie, NomCategorie)
+VALUES (2, 'Collier');
+
+SELECT * FROM Produits;
 
 
 

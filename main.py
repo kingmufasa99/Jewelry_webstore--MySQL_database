@@ -19,9 +19,9 @@ mycursor = mydb.cursor()
 
 @app.route("/")
 def Accueil():
-	lister_produits = "SELECT * FROM Produits"
-	mycursor.execute(lister_produits)
-	products = mycursor.fetchall()
+	sql = "SELECT * FROM Produits"
+	mycursor.execute(sql)
+	products = mycursor.fetchmany(size=2)
 	return render_template('accueil.html', products=products)
 
 
