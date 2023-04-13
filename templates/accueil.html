@@ -37,6 +37,12 @@
             </div>
         </div>
     </nav>
+    <h2>Liste des Produits:</h2>
+    <ul>
+    {% for i in products %}
+        <li>{{ i[1] }} - {{ i[2] }} €</li>
+    {% endfor %}
+    </ul>
 
     <!-- LOGIN -->
 
