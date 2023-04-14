@@ -19,6 +19,7 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
+    <script src="../static/script/myScript.js"></script>
 
     <title>La Boîte à Bijoux</title>
 </head>
@@ -48,6 +49,7 @@
 
     <!-- LOGIN -->
 
+    </div>
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -58,17 +60,15 @@
             </button>
           </div>
           <div class="modal-body">
-            <form id="loginForm" method="POST">
-              <div class="form-group">
+              <div class="">
                 <label for="email">Adresse courriel</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Entrer votre adresse courriel">
+                <input type="email" id="email" name="email" placeholder="Entrer votre adresse courriel">
               </div>
-              <div class="form-group">
+              <div class="">
                 <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Entrer votre mot de passe">
+                <input type="password" id="password" name="password" placeholder="Entrer votre mot de passe">
               </div>
-              <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-            </form>
+            <button onclick="login()">Connexion</button>
           </div>
         </div>
       </div>
@@ -164,7 +164,8 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" class="form-control" id="new_password" name="password" placeholder="Entrer votre mot de passe">
               </div>
-              <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
+              <button type="submit" className="btn btn-primary btn-block">S'INSCRIRE'</button>
+
             </form>
           </div>
         </div>

@@ -1,8 +1,10 @@
+import idlelib.debugger
 import os
 import bcrypt
 import jwt
-# from flask_cors import CORS
+import random
 import pymysql
+from passlib.hash import sha256_crypt
 from dotenv import load_dotenv
 from flask import Flask, jsonify, make_response, request, render_template
 
@@ -17,7 +19,37 @@ mydb = pymysql.connect(
 mycursor = mydb.cursor()
 
 
-@app.route("/")
+def hash_password(password):
+	return sha256_crypt.hash(password)
+
+
+def verify_password(password, actual):
+	return sha256_crypt.verify(password, actual)
+
+
+def insert_user(email, password):
+	hashed_password = hash_password(password)
+
+	request = f"INSERT INTO clients (AdresseEmail, MotDePasse) VALUES ('{email}', '{hashed_password}');"
+
+	mycursor.execute(request)
+
+
+def check_user_password(email, password):
+	request = f"SELECT MotDePasse FROM clients WHERE AdresseEmail = '{email}';"
+
+	mycursor.execute(request)
+
+	hashed_password = mycursor.fetchone() #pas chifre pour linstant
+
+	if(hashed_password[0] == password):
+		return True, print('trueeee')
+	return False, print('false')
+
+	# return verify_password(password, hashed_password)
+
+
+@app.route("/", methods=['GET', 'POST'])
 def Accueil():
 	sql = "SELECT * FROM Produits"
 	mycursor.execute(sql)
@@ -25,46 +57,52 @@ def Accueil():
 	return render_template('accueil.html', products=products)
 
 
-@app.route("/api/Connexion", methods=['POST'])
-def Connexion():
-	email = request.form.get('email')
-	password = request.form.get('password')
-
-	pwd = "SELECT MotDePasse FROM Clients WHERE AdresseEmail = %s"
-	val = (email,)
-	mycursor.execute(pwd, val)
-	client = mycursor.fetchmany()
-
-	if client:
-		hashed_password = client[0].encode('utf-8')
-		if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
-			return make_response("accueil.html", 200)
-		else:
-			return make_response("", 404)
-
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+	print("on est dans login")
+	if request.method == "GET":
+		print("on est dans le get")
+		return render_template("accueil.html")
 	else:
-		return make_response("", 404)
+
+		print("on est dans le post")
+		data = request.json
+
+		username = data["username"]
+		password = data["password"]
+
+		if check_user_password(username, password):
+			response = {
+				"status": 200
+			}
+		else:
+			response = {
+				"status": 403,
+				"message": "Mauvaise informations de connexion"
+			}
+
+		return jsonify(response)
 
 
 @app.route("/api/Inscription", methods=['POST'])
 def Inscription():
-    email = request.form.get('new_email')
-    password = request.form.get('new_password')
-    lastname = request.form.get('lastname')
-    firstname = request.form.get('firstname')
-    address = request.form.get('address')
+	cid = random.shuffle(list(range(1, 100)))
+	firstname = request.form.get('firstname')
+	lastname = request.form.get('lastname')
+	email = request.form.get('new_email')
+	address = request.form.get('address')
+	password = request.form.get('new_password')
 
-    # Cryptage du mot de passe
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    inscription = "INSERT INTO Clients VALUES (%s,%s,%s,%s,%s)"
-    val = (email, hashed_password, lastname, firstname, address)
+	# Cryptage du mot de passe
+	hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+	inscription = "INSERT INTO Clients VALUES (%s,%s,%s,%s,%s)"
+	val = (cid, firstname, lastname, email, address, hashed_password)
 
-    mycursor.execute(inscription, val)
-    mydb.commit()
+	mycursor.execute(inscription, val)
+	mydb.commit()
 
-    # Réponse HTTP
-    return make_response("accueil.html", 200)
-
+	# Réponse HTTP
+	return make_response("accueil.html", 200)
 
 
 @app.route("/api/Deconnexion", methods=['POST'])

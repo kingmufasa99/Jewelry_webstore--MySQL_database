@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19dc10ae-5627-44b4-9672-babcd2592bc0" name="Changes" comment="feat: ajout liste de produits (html+main)">
+    <list default="true" id="19dc10ae-5627-44b4-9672-babcd2592bc0" name="Changes" comment="feat: amélioration liste, ajout recherche">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/script/myScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/script/myScript.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/accueil.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accueil.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +65,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/mfila/OneDrive/Bureau/BD_projects/bijoux_bd/templates&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/mfila/OneDrive/Bureau/pythonProjectENVINFOS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -81,6 +84,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\mfila\OneDrive\Bureau\BD_projects\bijoux_bd\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mfila\OneDrive\Bureau\BD_projects\bijoux_bd" />
     </key>
   </component>
   <component name="RunManager">
@@ -131,6 +137,7 @@
       <workItem from="1681239474846" duration="11053000" />
       <workItem from="1681405562888" duration="1304000" />
       <workItem from="1681419604606" duration="201000" />
+      <workItem from="1681450272981" duration="3566000" />
     </task>
     <task id="LOCAL-00001" summary="feat: update sql et api">
       <created>1681114760123</created>
@@ -244,7 +251,23 @@
     <MESSAGE value="feat: ajout liste de produits (html+main)" />
     <option name="LAST_COMMIT_MESSAGE" value="feat: ajout liste de produits (html+main)" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>40</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/bijoux_bd$main.coverage" NAME="main Coverage Results" MODIFIED="1681419761285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/bijoux_bd$main.coverage" NAME="main Coverage Results" MODIFIED="1681487966009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
