@@ -27,12 +27,12 @@ def verify_password(password, actual):
 	return sha256_crypt.verify(password, actual)
 
 
-def insert_user(email, password):
-	hashed_password = hash_password(password)
+def insert_user(cid: int, firstname: str , lastname: str, email: str, address: str, password: str):
+	hashed_password = hash_password(password)  # chiffre le password donné
 
-	request = f"INSERT INTO clients (AdresseEmail, MotDePasse) VALUES ('{email}', '{hashed_password}');"
+	request = f"INSERT INTO clients (ID_Client, Nom, Prenom, AdresseEmail, AdressePostale, MotDePasse) VALUES ('{cid}', '{firstname}','{lastname}','{email}', '{address}','{hashed_password}');"
 
-	mycursor.execute(request)
+	mycursor.execute(request)  # insere le nouveau client dans la DB
 
 
 def check_user_password(email, password):
@@ -40,13 +40,13 @@ def check_user_password(email, password):
 
 	mycursor.execute(request)
 
-	hashed_password = mycursor.fetchone() #pas chifre pour linstant
+	hashed_password = mycursor.fetchone()  # pas encrypté pour l'instant
 
-	if(hashed_password[0] == password):
-		return True, print('trueeee')
-	return False, print('false')
+	if (hashed_password[0] == password):
+		return True
+	return False
 
-	# return verify_password(password, hashed_password)
+	return verify_password(password, hashed_password)
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -57,73 +57,64 @@ def Accueil():
 	return render_template('accueil.html', products=products)
 
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-	print("on est dans login")
+@app.route("/Connexion", methods=['GET', 'POST'])
+def Connexion():
 	if request.method == "GET":
-		print("on est dans le get")
 		return render_template("accueil.html")
 	else:
-
-		print("on est dans le post")
 		data = request.json
-
-		username = data["username"]
+		username = data["email"]
 		password = data["password"]
 
 		if check_user_password(username, password):
 			response = {
 				"status": 200
 			}
+			print('Tu es connecté bravo!')
 		else:
 			response = {
 				"status": 403,
-				"message": "Mauvaise informations de connexion"
-			}
+				"message": "Mauvaise information de connexion",
+				}
+			print('Oups not connected cabron')
 
 		return jsonify(response)
 
 
-@app.route("/api/Inscription", methods=['POST'])
+@app.route("/Inscription", methods=['GET', 'POST'])
 def Inscription():
-	cid = random.shuffle(list(range(1, 100)))
-	firstname = request.form.get('firstname')
-	lastname = request.form.get('lastname')
-	email = request.form.get('new_email')
-	address = request.form.get('address')
-	password = request.form.get('new_password')
+	if request.method == "GET":
+		return render_template("accueil.html")
+	else:
+		data = request.json
 
-	# Cryptage du mot de passe
-	hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-	inscription = "INSERT INTO Clients VALUES (%s,%s,%s,%s,%s)"
-	val = (cid, firstname, lastname, email, address, hashed_password)
+		lastname = data["lastname"]
+		firstname = data["firstname"]
+		new_email = data["new_email"]
+		address = data["address"]
+		password = data["new_password"]
+		# cid = random.randint(1, 1000)
 
-	mycursor.execute(inscription, val)
-	mydb.commit()
+		insert_user(random.randint(1, 1000000), firstname, lastname, new_email, address, password)
 
-	# Réponse HTTP
-	return make_response("accueil.html", 200)
+		if insert_user(random.randint(1, 1000), firstname, lastname, new_email, address, password) is not None:
+			return {"status": 200}
+		else:
+			return {"status": 400, "message": "Erreur lors de l'insertion de l'utilisateur dans la base de données"}
 
 
-@app.route("/api/Deconnexion", methods=['POST'])
+@app.route("/Deconnexion", methods=['POST'])
 def Deconnexion():
 	pass
 
 
 @app.route("/api/rechercheProduit", methods=['POST'])
 def rechercheProduit():
-	# try:
-	# 	reponse = make_response(jsonify({"redirect": "/Recherche", "message": request.form}))
-	# 	return reponse
-	# except:
-	# 	return ("", 404)
 	pass
 
 
 @app.route("/Recherche")
 def Recherche():
-	# params = []
-	# mycursor.callproc("selection_produits")
 	pass
 
 

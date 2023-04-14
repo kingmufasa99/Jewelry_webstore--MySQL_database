@@ -29,6 +29,9 @@
   padding: 16px;
   text-decoration: none;
 }
+.hidden {
+  display: none;
+}
 #regLoginbtn{
   text-align: center;
 }
