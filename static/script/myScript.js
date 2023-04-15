@@ -43,7 +43,6 @@ function signupjs(){
     var firstname = document.getElementById("firstname").value
     var address = document.getElementById('address').value
 
-
     fetch("/Inscription", {
         method: "POST",
         headers: {
@@ -61,7 +60,7 @@ function signupjs(){
     }).then(function(data) {
         if (data.status == 200) {
             window.location.href = "//127.0.0.1:5000"
-            console.log("tu es enregsitré")
+            console.log("tu es enregistré")
             // hide the login button
             document.getElementById("signup-btn").remove();
         }

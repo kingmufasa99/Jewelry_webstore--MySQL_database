@@ -27,13 +27,15 @@ def verify_password(password, actual):
 	return sha256_crypt.verify(password, actual)
 
 
-def insert_user(cid: int, firstname: str , lastname: str, email: str, address: str, password: str):
-	hashed_password = hash_password(password)  # chiffre le password donné
+def insert_user(cid: int, firstname: str, lastname: str, email: str, address: str, password: str):
+	hashed_password = hash_password(password)
+	# RESULT: $5$rounds=535000$FhXCRSRmjKgBKnQ0$8jZnnGfsADZyTWT8ThDWbAHrX5DrKMvEWqJFTXcPKFB
 
-	request = f"INSERT INTO clients (ID_Client, Nom, Prenom, AdresseEmail, AdressePostale, MotDePasse) VALUES ('{cid}', '{firstname}','{lastname}','{email}', '{address}','{hashed_password}');"
+	request = f"INSERT INTO clients VALUES ({cid}, '{firstname}','{lastname}','{email}', '{address}','{hashed_password}');"
+	#RESULT = INSERT INTO clients (ID_Client, Nom, Prenom, AdresseEmail, AdressePostale, MotDePasse) VALUES (259131, 'brrrr','nadir','nadir@bigbez.com', '6969 route de église','$5$rounds=535000$FhXCRSRmjKgBKnQ0$8jZnnGfsADZyTWT8ThDWbAHrX5DrKMvEWqJFTXcPKFB');
 
-	mycursor.execute(request)  # insere le nouveau client dans la DB
-
+	x=mycursor.execute(request)  # insere le nouveau client dans la DB
+	print(x)
 
 def check_user_password(email, password):
 	request = f"SELECT MotDePasse FROM clients WHERE AdresseEmail = '{email}';"
@@ -92,75 +94,22 @@ def Inscription():
 		firstname = data["firstname"]
 		new_email = data["new_email"]
 		address = data["address"]
-		password = data["new_password"]
-		# cid = random.randint(1, 1000)
+		new_password = data["new_password"]
+		cid = random.randint(1, 1000)
 
-		insert_user(random.randint(1, 1000000), firstname, lastname, new_email, address, password)
+		result = insert_user(cid, firstname, lastname, new_email, address, new_password)
+		return result
+		# return render_template("accueil.html")
 
-		if insert_user(random.randint(1, 1000), firstname, lastname, new_email, address, password) is not None:
-			return {"status": 200}
-		else:
-			return {"status": 400, "message": "Erreur lors de l'insertion de l'utilisateur dans la base de données"}
 
+# if result:
+		# 	return {"status": 200}
+		# 	print(result)
+		# else:
+		# 	return {"status": 400, "message": "Erreur lors de l'insertion de l'utilisateur dans la base de données"}
 
 @app.route("/Deconnexion", methods=['POST'])
 def Deconnexion():
-	pass
-
-
-@app.route("/api/rechercheProduit", methods=['POST'])
-def rechercheProduit():
-	pass
-
-
-@app.route("/Recherche")
-def Recherche():
-	pass
-
-
-@app.route("/api/ajouterPanier", methods=['POST'])
-def ajouterPanier():
-	# try:
-	#     produit_id = int(request.form['produit_id'])
-	#     user_id = int(request.form['user_id'])
-	#     mycursor.execute("INSERT INTO Commandes (ID_Produit, ID_Client) VALUES (%s, %s)", (produit_id, user_id))
-	#     mydb.commit()
-	#     return make_response(jsonify({'message': 'Produit ajouté au panier'}), 200)
-	# except:
-	#     return make_response(jsonify({'error': 'Failed to add product to cart'}), 500)
-	pass
-
-
-@app.route("/api/supprimerPanier", methods=['POST'])
-def supprimerPanier():
-	# try:
-	# 	produit_id = int(request.form['produit_id'])
-	# 	user_id = int(request.form['user_id'])
-	# 	mycursor.execute("DELETE FROM Commandes WHERE ID_Produit = %s AND ID_Client", (produit_id, user_id))
-	# 	mydb.commit()
-	# 	return make_response(jsonify({'message': 'Produit supprimé du panier'}), 200)
-	# except:
-	# 	return make_response(jsonify({'error': 'Failed to remove product from cart'}), 500)
-	pass
-
-
-@app.route("/api/commanderPanier", methods=['POST'])
-def commanderPanier():
-	# try:
-	# 	resp = make_response(jsonify({"redirect": "/Commande", "message": request.form}))
-	# 	return resp
-	# except:
-	# 	return ("", 404)
-	pass
-
-
-@app.route("/Commande")
-def Commande():
-	pass
-
-
-@app.route("/api/Noter", methods=['POST'])
-def Noter():
 	pass
 
 
