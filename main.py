@@ -27,15 +27,15 @@ def verify_password(password, actual):
 	return sha256_crypt.verify(password, actual)
 
 
-def insert_user(cid: int, firstname: str, lastname: str, email: str, address: str, password: str):
-	hashed_password = hash_password(password)
-	# RESULT: $5$rounds=535000$FhXCRSRmjKgBKnQ0$8jZnnGfsADZyTWT8ThDWbAHrX5DrKMvEWqJFTXcPKFB
+def insert_user(cid: int, firstname: str, lastname: str, new_email: str, address: str, new_password: str):
+	hashed_password = hash_password(new_password)
 
-	request = f"INSERT INTO clients VALUES ({cid}, '{firstname}','{lastname}','{email}', '{address}','{hashed_password}');"
-	#RESULT = INSERT INTO clients (ID_Client, Nom, Prenom, AdresseEmail, AdressePostale, MotDePasse) VALUES (259131, 'brrrr','nadir','nadir@bigbez.com', '6969 route de église','$5$rounds=535000$FhXCRSRmjKgBKnQ0$8jZnnGfsADZyTWT8ThDWbAHrX5DrKMvEWqJFTXcPKFB');
+	sql_insert = "INSERT INTO clients (ID_Client, Nom, Prenom, AdresseEmail, AdressePostale, MotDePasse) VALUES (%s, %s, %s, %s, %s, %s);"
+	values = (cid, firstname, lastname, new_email, address, hashed_password)
 
-	x=mycursor.execute(request)  # insere le nouveau client dans la DB
-	print(x)
+	mycursor.execute(sql_insert, values)
+	mydb.commit()
+
 
 def check_user_password(email, password):
 	request = f"SELECT MotDePasse FROM clients WHERE AdresseEmail = '{email}';"
@@ -77,7 +77,7 @@ def Connexion():
 			response = {
 				"status": 403,
 				"message": "Mauvaise information de connexion",
-				}
+			}
 			print('Oups not connected cabron')
 
 		return jsonify(response)
@@ -95,18 +95,15 @@ def Inscription():
 		new_email = data["new_email"]
 		address = data["address"]
 		new_password = data["new_password"]
-		cid = random.randint(1, 1000)
+		cid = random.randint(1, 10000)
 
 		result = insert_user(cid, firstname, lastname, new_email, address, new_password)
-		return result
-		# return render_template("accueil.html")
 
+		if result:
+			return make_response("accueil.html", 200)
+		else:
+			return {"status": 400, "message": "Erreur lors de l'insertion de l'utilisateur dans la base de données"}
 
-# if result:
-		# 	return {"status": 200}
-		# 	print(result)
-		# else:
-		# 	return {"status": 400, "message": "Erreur lors de l'insertion de l'utilisateur dans la base de données"}
 
 @app.route("/Deconnexion", methods=['POST'])
 def Deconnexion():
