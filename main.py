@@ -1,3 +1,5 @@
+import datetime
+import json
 import os
 import random
 import pymysql
@@ -7,6 +9,7 @@ from flask import Flask, jsonify, make_response, request, render_template, sessi
 
 load_dotenv()
 app = Flask(__name__)
+app.secret_key = 'mysecretkey'
 mydb = pymysql.connect(
     host="localhost",
     user=os.getenv('DBPUSER'),
@@ -65,22 +68,20 @@ def Connexion():
                 "status": 200
             }
             print('Tu es connecté bravo!')
-            return redirect(url_for('insite'))
-
+            expires = datetime.datetime.now() + datetime.timedelta(minutes=100)
+            session['email'] = username
+            session.permanent = True
+            app.permanent_session_lifetime = expires - datetime.datetime.now()
         else:
-            print(data["password"])
-            print(sha256_crypt.hash(password))
+            print('erreur')
             response = {
                 "status": 403,
                 "message": "Mauvaise information de connexion",
             }
-            return render_template("accueil.html")
+            return jsonify(response)
 
         return jsonify(response)
 
-@app.route("/insite")
-def insite():
-    return render_template("insite.html")
 
 @app.route("/Inscription", methods=['GET', 'POST'])
 def Inscription():
@@ -101,9 +102,12 @@ def Inscription():
         return make_response(render_template("accueil.html"), 200)
 
 
-@app.route("/Deconnexion", methods=['POST'])
+@app.route('/Deconnexion', methods=['GET', 'POST'])
 def Deconnexion():
-    return render_template("accueil.html")
+    # delete the cookie by setting an expired date in the past
+    resp = make_response(render_template('accueil.html'))
+    resp.set_cookie('email', '', expires=0)
+    return resp
 
 
 if __name__ == "__main__":

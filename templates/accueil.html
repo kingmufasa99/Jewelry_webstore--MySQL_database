@@ -41,6 +41,7 @@
                 <a class="nav-item nav-link" id="home" href="/">Page principale</a>
                 <a class="nav-item nav-link" id="signup-btn" data-toggle="modal" data-target="#signupModal" href="#">S'inscrire</a>
                 <a class="nav-item nav-link" id="login-btn" data-toggle="modal" data-target="#loginModal" href="#">Se connecter</a>
+                <a class="nav-item nav-link" id="logout-btn" data-toggle="modal" data-target="#logoutModal" href="#" onclick="logoutjs()">Se déconnecter</a>
             </div>
         </div>
     </nav>
@@ -67,12 +68,12 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" placeholder="Entrer votre mot de passe">
               </div>
-            <button onclick="loginjs()">Connexion</button>
+          <button type="submit" onclick="loginjs()">Connexion</button>
           </div>
         </div>
       </div>
     </div>
-    style>
+    <style>
     .success-message {
       background-color: green;
       color: white;
@@ -90,11 +91,6 @@
       }
     }
     </script>
-
-
-
-
-
 
     <!-- SIGNUP -->
 
@@ -129,7 +125,7 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" class="form-control" id="new_password" name="password" placeholder="Entrer votre mot de passe">
               </div>
-              <button onclick="signupjs()">Inscription</button>
+              <button type="submit" onclick="signupjs()">Inscription</button>
           </div>
         </div>
       </div>
@@ -190,8 +186,44 @@
           search();
     });
     </script>
+{#COOKIE#}
+    <head>
+    <script>
+    function setCookie(cname,cvalue,exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
 
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
 
+    function checkCookie() {
+      let user = getCookie("username");
+      if (user != "") {
+        alert("Welcome again " + user);
+      } else {
+         user = prompt("Please enter your name:","");
+         if (user != "" && user != null) {
+           setCookie("username", user, 30);
+         }
+      }
+    }
+    </script>
 
 <!--LIBRAIRIES UTILISÉS-->
 
