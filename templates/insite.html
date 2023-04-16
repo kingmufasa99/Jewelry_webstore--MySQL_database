@@ -38,102 +38,12 @@
                     <input id="searchbar" onkeyup="search()" type="text" name="search" placeholder="Recherche...">
                     <button type="submit">Rechercher</button>
                 </form>
-                <a class="nav-item nav-link" id="home" href="/">Page principale</a>
-                <a class="nav-item nav-link" id="signup-btn" data-toggle="modal" data-target="#signupModal" href="#">S'inscrire</a>
-                <a class="nav-item nav-link" id="login-btn" data-toggle="modal" data-target="#loginModal" href="#">Se connecter</a>
+                <a class="nav-item nav-link" id="logout-btn" data-toggle="modal" data-target="#logoutModal" href="#">Se déconnecter</a>
             </div>
         </div>
     </nav>
-    <h2>Liste des Produits:</h2>
+    <h4>Bienvenue utilisateur, voici la liste des produits:</h4>
 
-    <!-- LOGIN -->
-
-    </div>
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title" id="loginModalLabel">Connexion</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <div class="">
-                <label for="email">Adresse courriel</label>
-                <input type="email" id="email" name="email" placeholder="Entrer votre adresse courriel">
-              </div>
-              <div class="">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Entrer votre mot de passe">
-              </div>
-            <button onclick="loginjs()">Connexion</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    style>
-    .success-message {
-      background-color: green;
-      color: white;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    </style>
-    <script>
-    window.onload = function() {
-      var successMessageDiv = document.querySelector(".success-message");
-      if (successMessageDiv) {
-        setTimeout(function() {
-          successMessageDiv.style.display = "none";
-        }, 5000);
-      }
-    }
-    </script>
-
-
-
-
-
-
-    <!-- SIGNUP -->
-
-    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title" id="signupModalLabel">S'inscrire</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!--AJOUTER DES ALERTES-->
-              <div class="form-group">
-                <label for="lastname">Nom de famille</label>
-                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Entrer votre nom de famille">
-              </div>
-              <div class="form-group">
-                <label for="firstname">Nom </label>
-                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Entrer votre prénom">
-              </div>
-              <div class="form-group">
-                <label for="email">Adresse courriel</label>
-                <input type="email" class="form-control" id="new_email" name="email" placeholder="Entrer votre adresse courriel">
-              </div>
-              <div class="form-group">
-                <label for="address">Adresse de domicile </label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Entrer votre adresse de domicile">
-              </div>
-              <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="new_password" name="password" placeholder="Entrer votre mot de passe">
-              </div>
-              <button onclick="signupjs()">Inscription</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- LISTE DE PRODUITS -->
 

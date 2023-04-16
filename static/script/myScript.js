@@ -23,7 +23,8 @@
         return response.json()
     }).then(function(data) {
         if (data.status == 200) {
-            window.location.href = "//127.0.0.1:5000"
+            showSuccessMessage();
+            window.location.href = "insite.html"
             console.log("tu es connecté")
             // hide the login button
             document.getElementById("login-btn").remove();
@@ -59,7 +60,7 @@ function signupjs(){
         return response.json()
     }).then(function(data) {
         if (data.status == 200) {
-            window.location.href = "//127.0.0.1:5000"
+            window.location.href = "accueil.html"
             console.log("tu es enregistré")
             // hide the login button
             document.getElementById("signup-btn").remove();
@@ -70,6 +71,21 @@ function signupjs(){
     })
 }
 
+function logoutjs() {
+  fetch('/Deconnexion', {
+    method: 'POST'
+  }).then(response => {
+    if (response.ok) {
+      window.location.href = '/';
+    }
+  }).catch(error => console.error(error));
+}
 
-
+const logoutBtn = document.querySelector('#logout-btn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    logoutjs();
+  });
+}
 
