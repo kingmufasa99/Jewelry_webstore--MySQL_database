@@ -14,11 +14,8 @@ CREATE TABLE Clients (
 );
 
 CREATE TABLE Commandes (
-  ID_Commande INT,
+  ID_Commande INTEGER AUTO_INCREMENT,
   ID_Client INT,
-  DateCommande DATE,
-  DateLivraisonEstimee DATE,
-  StatutCommande ENUM('en attente', 'expédiée', 'livrée', 'annulée'),
   PRIMARY KEY (ID_Commande),
   FOREIGN KEY (ID_Client) REFERENCES Clients(ID_Client)
 );
@@ -28,7 +25,7 @@ CREATE TABLE Produits (
   NomProduit VARCHAR(255),
   Description TEXT,
   Prix DECIMAL(10, 2),
-  StockDisponible BOOL,
+  StockDisponible INT,
   ID_Categorie INT,
   PRIMARY KEY (ID_Produit),
   FOREIGN KEY (ID_Categorie) REFERENCES Categories(ID_Categorie)
@@ -58,6 +55,16 @@ CREATE TABLE Images (
   FOREIGN KEY (ID_Produit) REFERENCES Produits(ID_Produit)
 );
 
+CREATE TABLE Panier (
+  ID_Panier INTEGER AUTO_INCREMENT,
+  ID_Client INT,
+  ID_Produit INT,
+  Quantite INT,
+  PRIMARY KEY (ID_Panier),
+  FOREIGN KEY (ID_Client) REFERENCES Clients(ID_Client),
+  FOREIGN KEY (ID_Produit) REFERENCES Produits(ID_Produit)
+);
+
 INSERT INTO Clients (ID_Client, Nom, Prenom, AdresseEmail, AdressePostale, MotDePasse)
 VALUES (1, 'Doe', 'John', 'john.doe@email.com', '123 Main St', 'password');
 
@@ -70,11 +77,17 @@ VALUES (1, 'Bague en or blanc et diamant', 'Bague en or blanc 18 carats sertie d
 INSERT INTO Produits (ID_Produit, NomProduit, Description, Prix, Stockdisponible, ID_Categorie)
 VALUES (2, 'Collier en argent et perles de culture', 'Collier en argent sterling 925 avec des perles de culture d''eau douce. Parfait pour un style décontracté ou pour les occasions spéciales.', 299.99, 20, 2);
 
+INSERT INTO Produits (ID_Produit, NomProduit, Description, Prix, Stockdisponible, ID_Categorie)
+VALUES (3, 'Bracelet en argent et topaze bleue', 'Bracelet en argent sterling 925 serti de topazes bleues de qualité AAA. Un bijou élégant pour toutes les occasions.', 599.99, 15, 1);
+
 INSERT INTO Categories (ID_Categorie, NomCategorie)
 VALUES (1, 'Bague');
 
 INSERT INTO Categories (ID_Categorie, NomCategorie)
 VALUES (2, 'Collier');
+
+INSERT INTO Categories (ID_Categorie, NomCategorie)
+VALUES (3, 'Bracelet');
 
 
 

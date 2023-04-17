@@ -3,8 +3,57 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <script src="./bijoux_bd/static/script/myScript.js"></script>-->
+    <script src="myScript.js"></script>
 <!--    <link rel="stylesheet" href="..static/styles/myMap.css"/>-->
+    <style>
+        #cart-container {
+            background-color: #343a40 ;
+            color: white;
+            padding: 20px;
+        }
+
+        #add-button {
+            background-color: white;
+            color: #2a2828;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #buy-button {
+            background-color: white;
+            color: #2a2828;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #delete-button {
+            background-color: white;
+            color: #2a2828;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #add-button:hover {
+            background-color: #f2f2f2;
+        }
+
+        #buy-button:hover {
+            background-color: #f2f2f2;
+        }
+
+        #delete-button:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -19,7 +68,7 @@
 
     <title>La Boîte à Bijoux</title>
 </head>
-<body>
+<body onload="fetchPanier()">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
             <span class="navbar-toggler-icon"></span>
@@ -32,96 +81,211 @@
                     <button type="submit">Rechercher</button>
                 </form>
                 <a class="nav-item nav-link" id="home" href="/">Page principale</a>
+                <a class="nav-item nav-link" id="panier" href="/" onclick="panier()">Panier</a>
                 <a class="nav-item nav-link" id="signUp" href="/Inscription">S'inscrire</a>
                 <a class="nav-item nav-link" id="login" data-toggle="modal" data-target="#loginModal" href="#">Se connecter</a>
-                <a class="nav-item nav-link" id="logout" href="{{ url_for('Deconnexion') }}">Se deconnecter</a>
+                <a class="nav-item nav-link" id="logout">Se deconnecter</a>
+
             </div>
         </div>
     </nav>
+    <br/>
+    <h2>Liste des produits :</h2>
+
+    <!-- LOGIN -->
+
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="modal-title" id="loginModalLabel">Se connecter</h3>
+            <h3 class="modal-title" id="loginModalLabel">Connexion</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <!--AJOUTER DES ALERTES
-                                            + alerte champ non-remplis
-                                            + alerte champs incorrect
-
-            -->
-            <form method="post" action="login.php">
-              <div class="form-group">
+              <div class="">
                 <label for="email">Adresse courriel</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Entrer votre adresse courriel">
+                <input type="email" id="email" name="email" placeholder="Entrer votre adresse courriel">
               </div>
-              <div class="form-group">
+              <div class="">
                 <label for="password">Mot de passe</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Entrer votre mot de passe">
+                <input type="password" id="password" name="password" placeholder="Entrer votre mot de passe">
               </div>
-              <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-            </form>
+            <button onclick="loginjs()">Connexion</button>
           </div>
         </div>
       </div>
     </div>
-    <br/>
+
+    <!-- SIGNUP -->
+
+    <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="signupModalLabel">S'inscrire</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!--AJOUTER DES ALERTES-->
+              <div class="form-group">
+                <label for="lastname">Nom de famille</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Entrer votre nom de famille">
+              </div>
+              <div class="form-group">
+                <label for="firstname">Nom </label>
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Entrer votre prénom">
+              </div>
+              <div class="form-group">
+                <label for="email">Adresse courriel</label>
+                <input type="email" class="form-control" id="new_email" name="email" placeholder="Entrer votre adresse courriel">
+              </div>
+              <div class="form-group">
+                <label for="address">Adresse de domicile </label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Entrer votre adresse de domicile">
+              </div>
+              <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" class="form-control" id="new_password" name="password" placeholder="Entrer votre mot de passe">
+              </div>
+              <button onclick="signupjs()">Inscription</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTE DE PRODUITS -->
+
     <table class="table table-hover table-dark" id="table">
         <thead>
             <tr>
+                <th scope="col">Acheter</th>
                 <th scope="col">ID</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Description</th>
-                <th scope="col">Prix</th>
+                <th scope="col">Prix($)</th>
                 <th scope="col">Stock</th>
             </tr>
         </thead>
         <tbody>
-             {% for product in products %}
+             {% for col in products %}
                 <tr>
-                    <td>{{ product[0] }}</td>
-                    <td>{{ product[1] }}</td>
-                    <td>{{ product[2] }}</td>
-                    <td>{{ product[3] }}</td>
-                    <td>{{ product[4] }}</td>
+                    <td>{% if col[4] != 0 %}<button id="add-button" onclick="onButton('{{ col[0] }}', '{{ col[1] }}', '{{ col[3] }}')">Ajouter au panier</button>{% else %} {rupture de stock} {% endif %}</td>
+                    <td>{{ col[0] }}</td>
+                    <td>{{ col[1] }}</td>
+                    <td>{{ col[2] }}</td>
+                    <td>{{ col[3] }}</td>
+                    <td>{{ col[4] }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <br/>
+    <h3>Panier :</h3>
+    <div id="cart-container">
+        <div id="product-container"></div>
+        <button id="buy-button" onclick="acheterItems()">Acheter</button>
+        <button id="delete-button" onclick="deleteItems()">Supprimer</button>
+    </div>
 
+
+    <!--CODE QUE JE VAIS METTRE DANS STATIC/SCRIPT APRES-->
     <script>
-    function search() {
-        var input = document.getElementById("searchbar");
-        var upper = input.value.toUpperCase();
-        var collonne = document.getElementById("table").getElementsByTagName("tr");
+        function displayItem(id, item, price) {
+            var itemcontainer = document.getElementById('product-container')
+            var newItem = document.createElement('div')
+            newItem.innerText = "ID : " + id + ' **** Produit : ' + item + ' **** Prix: ' + price + '$'
+            itemcontainer.appendChild(newItem)
+        }
 
-          for (var i = 0; i < collonne.length; i++) {
-            var elements = collonne[i].getElementsByTagName("td");
-            var valide = false;
-            for (var j = 0; j < elements.length; j++) {
-              var element = elements[j];
-              if (element) {
-                var text = element.textContent || element.innerText;
-                if (text.toUpperCase().indexOf(upper) > -1) {
-                  valide = true;
-                  break;
+
+        function onButton(itemId, itemName, itemPrice) {
+           fetch('/add-to-panier/', {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json"
+        },
+               body: JSON.stringify({
+                   id : itemId,
+                   item: itemName,
+                   price : itemPrice
+        })
+    })
+          displayItem(itemId, itemName, itemPrice)
+}
+        function fetchPanier() {
+            fetch('/panier').then(function (response) {
+                return response.json()
+            }).then(function (data) {
+                let pids = data.pide
+                let noms = data.nom
+                let prix = data.prix
+
+                for (let i = 0; i < pids.length; i++) {
+                    displayItem(pids[i], noms[i], prix[i])
                 }
-              }
-            }
-            collonne[i].style.display = valide ? "" : "none";
+            });
+        }
+
+        function deleteItems() {
+            fetch(`/delete_panier/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json()).then(data => {
+                if (data.status === 200) {
+                    window.location.reload();
+                }
+            })
+        }
+
+        function acheterItems() {
+            fetch(`/acheter-panier/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json()).then(data => {
+                if (data.status === 200) {
+                    window.location.reload();
+                }
+            })
+        }
+
+        function panier() {
+            window.location.href = "accueil.html"
+        }
+        function search() {
+            var input = document.getElementById("searchbar");
+            var upper = input.value.toUpperCase();
+            var collonne = document.getElementById("table").getElementsByTagName("tr");
+
+            for (var i = 0; i < collonne.length; i++) {
+                var elements = collonne[i].getElementsByTagName("td");
+                var valide = false;
+                for (var j = 0; j < elements.length; j++) {
+                    var element = elements[j];
+                    if (element) {
+                        var text = element.textContent || element.innerText;
+                        if (text.toUpperCase().indexOf(upper) > -1) {
+                            valide = true;
+                            break;
+                    }
+                  }
+                }
+                collonne[i].style.display = valide ? "" : "none";
           }
         }
         document.querySelector("form").addEventListener("submit", function(e) {
           e.preventDefault();
           search();
-    });
+    })
     </script>
-
     <!--LIBRAIRIES UTILISÉS-->
-
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

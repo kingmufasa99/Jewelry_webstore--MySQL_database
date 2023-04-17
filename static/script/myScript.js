@@ -1,49 +1,55 @@
-  $('#loginForm').submit(function(e) {
-    e.preventDefault();
-    var email = $('#email').val();
-    var password = $('#password').val();
-    $.ajax({
-      type: 'POST',
-      url: '/api/Connexion',
-      data: {email: email, password: password},
-      success: function(data) {
-        alert("Connexion réussie !");
-        $('#loginModal').modal('hide');
-        $('#login').hide();
-        $('#logout').show();
-      },
-      error: function(data) {
-        alert("Adresse email ou mot de passe incorrect !");
-      }
-    });
-  });
-
-  $('#logout').click(function() {
-    $.ajax({
-      type: 'POST',
-      url: '/api/Deconnexion',
-      success: function(data) {
-        alert("Vous êtes déconnecté !");
-        $('#logout').hide();
-        $('#login').show();
-      },
-      error: function(data) {
-        alert("Erreur lors de la déconnexion !");
-      }
-    });
-  });
-
-  function search() {
-    let input = document.getElementById('searchbar').value
-    input=input.toLowerCase();
-    let table = document.getElementById('table');
-
-    for (i = 0; i < table.length; i++) {
-        if (!table[i].innerHTML.toLowerCase().includes(input)) {
-            table[i].style.display="none";
-        }
-        else {
-            table[i].style.display="list-item";
-        }
-    }
-}
+//
+//   function search() {
+//         var input = document.getElementById("searchbar");
+//         var upper = input.value.toUpperCase();
+//         var collonne = document.getElementById("table").getElementsByTagName("tr");
+//
+//           for (var i = 0; i < collonne.length; i++) {
+//             var elements = collonne[i].getElementsByTagName("td");
+//             var valide = false;
+//             for (var j = 0; j < elements.length; j++) {
+//               var element = elements[j];
+//               if (element) {
+//                 var text = element.textContent || element.innerText;
+//                 if (text.toUpperCase().indexOf(upper) > -1) {
+//                   valide = true;
+//                   break;
+//                 }
+//               }
+//             }
+//             collonne[i].style.display = valide ? "" : "none";
+//           }
+//         }
+//         document.querySelector("form").addEventListener("submit", function(e) {
+//           e.preventDefault();
+//           search();
+//     })
+//         function panier() {
+//             window.location.href = "panier.html"
+//         }
+//
+//   function displayItem(item) {
+//     var todocontainer = document.getElementById('product-container')
+//     var newItem = document.createElement('div')
+//     newItem.innerText = item
+//     todocontainer.appendChild(newItem)
+// }
+//     function onButton(itemName) {
+//         fetch('/add-item', {
+//             method: 'POST',
+//             body: JSON.stringify({ item: itemName }),
+//             headers: { 'Content-Type': 'application/json' }
+//         })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.success) {
+//                 displayItem(itemName);
+//             } else {
+//                 alert(data.message);
+//             }
+//         })
+//         .catch(error => {
+//             console.error(error);
+//             alert('Une erreur s\'est produite.');
+//         });
+// }
