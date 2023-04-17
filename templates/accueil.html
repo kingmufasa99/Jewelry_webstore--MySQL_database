@@ -21,9 +21,11 @@
     />
     <script src="../static/script/myScript.js"></script>
     <link rel="stylesheet" href="/static/styles/myMap.css">
+    <link rel="stylesheet" href="/static/script/myScript.js">
+
 
 </head>
-<body>
+<body onload="fetchPanier()">
 
 <!-- BARRE DE NAVIGATION EN HAUT -->
 
@@ -129,51 +131,30 @@
             </tr>
         </thead>
         <tbody>
-            {% for col in products %}
-                <div class="espacement">
-                    <tr>
-                        <td>{% if col[4] != 0 %}<a ><button class="btn btn-outline-light my-2 my-sm-0" >Ajouter au panier</button></a>{% else %}Rupture de stock{% endif %}</td>
-                        <td>{{ col[1] }}</td>
-                        <td>{{ col[2] }}</td>
-                        <td>{{ col[3] }}</td>
-                        <td>{{ col[4] }}</td>
-                        <td><img src="https://images.pexels.com/photos/6019185/pexels-photo-6019185.jpeg" alt="blt" style="width:180px;height:142px;">
-                        </td>
-                    </tr>
-                </div>
-            {% endfor %}
+                {% for col in products %}
+                    <div class="espacement">
+                        <tr>
+                            <td>{% if col[4] != 0 %}<a ><button id="buy-button" class="btn btn-outline-light my-2 my-sm-0" onclick="onButton('{{ col[0] }}', '{{ col[1] }}', '{{ col[3] }}')">Ajouter au panier</button></a>{% else %}Rupture de stock{% endif %}</td>
+                            <td>{{ col[1] }}</td>
+                            <td>{{ col[2] }}</td>
+                            <td>{{ col[3] }}</td>
+                            <td>{{ col[4] }}</td>
+                            <td><img src="https://images.pexels.com/photos/6019185/pexels-photo-6019185.jpeg" alt="blt" style="width:180px;height:142px;">
+                            </td>
+                        </tr>
+                    </div>
+
+                {% endfor %}
         </tbody>
     </table>
+    <br/>
+    <h3>Panier :</h3>
+    <div id="cart-container">
+        <div id="product-container"></div>
+        <button id="buy-button" onclick="acheterItems()">Acheter</button>
+        <button id="delete-button" onclick="deleteItems()">Supprimer</button>
+    </div>
 
-    <!--BARRE DE RECHERCHE-->
-
-    <script>
-    function search() {
-        var input = document.getElementById("searchbar");
-        var upper = input.value.toUpperCase();
-        var collonne = document.getElementById("table").getElementsByTagName("tr");
-
-          for (var i = 0; i < collonne.length; i++) {
-            var elements = collonne[i].getElementsByTagName("td");
-            var valide = false;
-            for (var j = 0; j < elements.length; j++) {
-              var element = elements[j];
-              if (element) {
-                var text = element.textContent || element.innerText;
-                if (text.toUpperCase().indexOf(upper) > -1) {
-                  valide = true;
-                  break;
-                }
-              }
-            }
-            collonne[i].style.display = valide ? "" : "none";
-          }
-        }
-        document.querySelector("form").addEventListener("submit", function(e) {
-          e.preventDefault();
-          search();
-    });
-    </script>
 </div>
 
 

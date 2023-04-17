@@ -18,6 +18,48 @@ mydb = pymysql.connect(
 )
 mycursor = mydb.cursor()
 
+def select_panier():
+    query = f"SELECT * FROM Panier"
+    mycursor.execute(query)
+    panier = [entry for entry in mycursor.fetchall()]
+    return panier
+
+def select_Id():
+    req = "SELECT ID_Produit FROM Panier "
+    mycursor.execute(req)
+    id = [entry for entry in mycursor.fetchall()]
+    return id
+
+
+def select_NomProduit():
+    req = "SELECT NomProduit FROM Produits P, Panier N WHERE P.ID_Produit = N.ID_Produit "
+    mycursor.execute(req)
+    nom = [entry for entry in mycursor.fetchall()]
+    return nom
+
+
+def select_Prix():
+    req = "SELECT Prix FROM Produits P, Panier N WHERE P.ID_Produit = N.ID_Produit "
+    mycursor.execute(req)
+    prix = [entry for entry in mycursor.fetchall()]
+    return prix
+
+
+def get_cid():
+    email = session.get('email')
+    query = f"SELECT ID_Client FROM Clients WHERE AdresseEmail = {email} "
+    mycursor.execute(query)
+    res = mycursor.fetchone()
+    cid = res[0]
+    return cid
+
+
+def products():
+    req = "SELECT * FROM Produits"
+    mycursor.execute(req)
+    products = mycursor.fetchmany(size=3)
+    return products
+
 
 def hash_password(password):
     return sha256_crypt.hash(password)
@@ -39,6 +81,7 @@ def insert_user(cid: int, firstname: str, lastname: str, new_email: str, address
 
 def check_user_password(email, password):
     request = f"SELECT MotDePasse FROM clients WHERE AdresseEmail = '{email}';"
+    v = email
     mycursor.execute(request)
 
     hashed_password = mycursor.fetchone()[0]
@@ -110,5 +153,85 @@ def Deconnexion():
     return resp
 
 
+@app.route("/panier", methods=["GET"])
+def get_panier():
+    pide = select_Id()
+    nom = select_NomProduit()
+    prix = select_Prix()
+    response = {
+        "status": 200,
+        "pide": pide,
+        "nom": nom,
+        "prix": prix
+    }
+    return jsonify(response)
+
+
+@app.route("/add-to-panier/", methods=['POST'])
+def AddPanier():
+    data = request.get_json()
+    itemId = data['id']
+    email = session.get('email')
+    print(email)
+
+    cid = get_cid()
+
+    query2 = f"SELECT Quantite FROM Panier WHERE ID_Produit = {itemId} AND ID_Client = {cid} "
+    mycursor.execute(query2)
+    result = mycursor.fetchone()
+
+    if result:
+        quantite = result[0] + 1
+        update_query = f"UPDATE Panier SET Quantite = {quantite} WHERE ID_Produit = {itemId} AND ID_Client = {cid} "
+        mycursor.execute(update_query)
+    else:
+        insert_query = f"INSERT INTO Panier (ID_client, ID_Produit, Quantite) VALUES ({cid}, {itemId}, 1)"
+        mycursor.execute(insert_query)
+
+    mydb.commit()
+
+    response = {
+        "status": 200
+    }
+
+    return jsonify(response)
+
+
+@app.route("/delete_panier/", methods=['POST'])
+def delete_panier():
+    cid = get_cid()
+
+    delete_query = f"DELETE * FROM Panier WHERE ID_Client = {cid}"
+    mycursor.execute(delete_query)
+
+    mydb.commit()
+
+    response = {
+        "status": 200
+    }
+
+    return jsonify(response)
+
+
+@app.route("/acheter-panier/", methods=['POST'])
+def acheter_panier():
+    cid = get_cid()
+
+    request = f"""INSERT INTO Commandes (ID_Client) VALUE ("{cid}")"""
+
+    mycursor.execute(request)
+
+    if request:
+        query = f"UPDATE Produits SET (StockDisponible = StockDisponible - (SELECT Quantite FROM Panier WHERE " \
+                f"ID_Client = {cid}))"
+        mycursor.execute(query)
+
+    response = {
+        "status": 200
+    }
+
+    return jsonify(response)
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
