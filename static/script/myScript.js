@@ -33,11 +33,12 @@ function loginjs() {
 			setCookie('email', email, 7);
 			setCookie('password', password, 7);
 
-			window.location.href = "127.0.0.1:5000"
-			location.reload()
+			window.location.href = "/"
+			// location.reload()
 			console.log("tu es connecté")
 			// hide the login button
 			document.getElementById("login-btn").remove();
+			document.getElementById("login-btn").innerHTML = ""
 		} else {
 			displayError(data.status)
 		}
@@ -94,5 +95,14 @@ function logoutjs() {
     })
     .catch(error => console.error(error));
 }
+
+
+function setCookie(cname,cvalue,exdays) {
+      const d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      let expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
 
 

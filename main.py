@@ -5,7 +5,7 @@ import random
 import pymysql
 from passlib.hash import sha256_crypt
 from dotenv import load_dotenv
-from flask import Flask, jsonify, make_response, request, render_template, session, redirect, url_for
+from flask import Flask, jsonify, make_response, request, render_template, session
 
 load_dotenv()
 app = Flask(__name__)
@@ -50,7 +50,7 @@ def check_user_password(email, password):
 def Accueil():
     sql = "SELECT * FROM Produits"
     mycursor.execute(sql)
-    products = mycursor.fetchmany(size=5)
+    products = mycursor.fetchmany(size=9)
     return render_template('accueil.html', products=products)
 
 

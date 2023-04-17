@@ -1,43 +1,17 @@
-#map{
-  height: calc(100vh - 3.5rem);
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'poppins', sans-serif;
+}
+.hero{
+  min-height: 150vh;
   width: 100%;
-}
-#hr{
-  color: rgb(121, 120, 120);
-}
-#pdiv{
-  bottom: 2%;
-  width: calc(100% - 1.5rem);
-  position:absolute;
-}
-#btnad{
-  margin-left: 1%;
-}
-.margin-style{
-  margin-top: 4%;
-}
-.btnprofil{
-  width: 100%;
-}
-.colheigh {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-}
-.sidebar a {
-  display: block;
-  padding: 16px;
-  text-decoration: none;
-}
-.hidden {
-  display: none;
-}
-#regLoginbtn{
-  text-align: center;
-}
-#marginRightSpace{
-  margin-right: 1%;
-}
-.hideAlert{
-  display: none;
+  background-color: #000;
+  background-image: url(https://i.pinimg.com/originals/b0/72/b4/b072b454c263e9ebe2ab3063b4907480.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: #fff;
+  padding: 0 8%;
 }

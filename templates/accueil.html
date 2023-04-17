@@ -20,32 +20,30 @@
       crossorigin="anonymous"
     />
     <script src="../static/script/myScript.js"></script>
+    <link rel="stylesheet" href="/static/styles/myMap.css">
 
-    <title>La Boîte à Bijoux</title>
 </head>
 <body>
 
-    <!-- BARRE DE NAVIGATION EN HAUT -->
+<!-- BARRE DE NAVIGATION EN HAUT -->
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <h1 class="logo">La Boîte à Bijoux</h1>
-        <div class="collapse navbar-collapse justify-content-end" id="navbar">
-            <div class="navbar-nav">
-                <form>
-                    <input id="searchbar" onkeyup="search()" type="text" name="search" placeholder="Recherche...">
-                    <button type="submit">Rechercher</button>
-                </form>
-                <a class="nav-item nav-link" id="home" href="/">Page principale</a>
-                <a class="nav-item nav-link" id="signup-btn" data-toggle="modal" data-target="#signupModal" href="#">S'inscrire</a>
-                <a class="nav-item nav-link" id="login-btn" data-toggle="modal" data-target="#loginModal" href="#">Se connecter</a>
-                <a class="nav-item nav-link" id="logout-btn" data-toggle="modal" data-target="#logoutModal" href="#" onclick="logoutjs()">Se déconnecter</a>
-            </div>
-        </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/" style="font-family: 'Lucida Console', cursive; font-size: 2rem;">Bijouterie du Carat</a>
+      <div class="collapse navbar-collapse justify-content-end" id="navbar">
+        <ul class="navbar-nav">
+            <form class="form-inline">
+              <input id="searchbar" onkeyup="search()" type="text" class="form-control mr-sm-2" name="search" placeholder="Recherche...">
+              <button type="submit" class="btn btn-outline-light my-2 my-sm-0">Rechercher</button>
+            </form>
+            <a class="nav-link" id="signup-btn" data-toggle="modal" data-target="#signupModal" href="#">S'inscrire</a>
+            <a class="nav-link" id="login-btn" data-toggle="modal" data-target="#loginModal" href="#">Se connecter</a>
+            <a class="nav-link" id="logout-btn" data-toggle="modal" data-target="#logoutModal" href="#" onclick="logoutjs()">Se déconnecter</a>
+        </ul>
+      </div>
     </nav>
-    <h2>Liste des Produits:</h2>
 
     <!-- LOGIN -->
 
@@ -73,24 +71,6 @@
         </div>
       </div>
     </div>
-    <style>
-    .success-message {
-      background-color: green;
-      color: white;
-      padding: 10px;
-      margin-top: 10px;
-    }
-    </style>
-    <script>
-    window.onload = function() {
-      var successMessageDiv = document.querySelector(".success-message");
-      if (successMessageDiv) {
-        setTimeout(function() {
-          successMessageDiv.style.display = "none";
-        }, 5000);
-      }
-    }
-    </script>
 
     <!-- SIGNUP -->
 
@@ -125,15 +105,18 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" class="form-control" id="new_password" name="password" placeholder="Entrer votre mot de passe">
               </div>
-              <button type="submit" onclick="signupjs()">Inscription</button>
+              <button type="submit" onclick="signupjs()">Inscris-toi</button>
           </div>
         </div>
       </div>
     </div>
+    <!-- Fonds d'écran -->
+
+<div class="hero">
 
     <!-- LISTE DE PRODUITS -->
 
-    <br/>
+   <br/>
     <table class="table table-hover table-dark" id="table">
         <thead>
             <tr>
@@ -142,17 +125,20 @@
                 <th scope="col">Description</th>
                 <th scope="col">Prix</th>
                 <th scope="col">Stock</th>
+                <th scope="col">Image</th>
             </tr>
         </thead>
         <tbody>
-             {% for col in products %}
-                <tr>
-                    <td>{% if col[4] != 0 %}<a href="BUY"><button>Ajouter au panier</button></a>{% else %}Rupture de stock{% endif %}</td>
-                    <td>{{ col[1] }}</td>
-                    <td>{{ col[2] }}</td>
-                    <td>{{ col[3] }}</td>
-                    <td>{{ col[4] }}</td>
-                </tr>
+            {% for col in products %}
+            <tr>
+                <td>{% if col[4] != 0 %}<a href="buy"><button>Ajouter au panier</button></a>{% else %}Rupture de stock{% endif %}</td>
+                <td>{{ col[1] }}</td>
+                <td>{{ col[2] }}</td>
+                <td>{{ col[3] }}</td>
+                <td>{{ col[4] }}</td>
+                <td><img src="https://images.pexels.com/photos/6019185/pexels-photo-6019185.jpeg" alt="blt" style="width:170px;height:142px;">
+                </td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
@@ -186,44 +172,8 @@
           search();
     });
     </script>
-{#COOKIE#}
-    <head>
-    <script>
-    function setCookie(cname,cvalue,exdays) {
-      const d = new Date();
-      d.setTime(d.getTime() + (exdays*24*60*60*1000));
-      let expires = "expires=" + d.toUTCString();
-      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
+</div>
 
-    function getCookie(cname) {
-      let name = cname + "=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(';');
-      for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
-
-    function checkCookie() {
-      let user = getCookie("username");
-      if (user != "") {
-        alert("Welcome again " + user);
-      } else {
-         user = prompt("Please enter your name:","");
-         if (user != "" && user != null) {
-           setCookie("username", user, 30);
-         }
-      }
-    }
-    </script>
 
 <!--LIBRAIRIES UTILISÉS-->
 
