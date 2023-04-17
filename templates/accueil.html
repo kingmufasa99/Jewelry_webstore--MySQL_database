@@ -130,15 +130,17 @@
         </thead>
         <tbody>
             {% for col in products %}
-            <tr>
-                <td>{% if col[4] != 0 %}<a href="buy"><button>Ajouter au panier</button></a>{% else %}Rupture de stock{% endif %}</td>
-                <td>{{ col[1] }}</td>
-                <td>{{ col[2] }}</td>
-                <td>{{ col[3] }}</td>
-                <td>{{ col[4] }}</td>
-                <td><img src="https://images.pexels.com/photos/6019185/pexels-photo-6019185.jpeg" alt="blt" style="width:170px;height:142px;">
-                </td>
-            </tr>
+                <div class="espacement">
+                    <tr>
+                        <td>{% if col[4] != 0 %}<a ><button class="btn btn-outline-light my-2 my-sm-0" >Ajouter au panier</button></a>{% else %}Rupture de stock{% endif %}</td>
+                        <td>{{ col[1] }}</td>
+                        <td>{{ col[2] }}</td>
+                        <td>{{ col[3] }}</td>
+                        <td>{{ col[4] }}</td>
+                        <td><img src="https://images.pexels.com/photos/6019185/pexels-photo-6019185.jpeg" alt="blt" style="width:170px;height:142px;">
+                        </td>
+                    </tr>
+                </div>
             {% endfor %}
         </tbody>
     </table>
