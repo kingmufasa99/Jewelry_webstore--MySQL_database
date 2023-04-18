@@ -124,7 +124,6 @@ DELIMITER ;
 
 call check_password_format('Filali999.')
 
-# finir draw.io
 # réviser texte
 # filmer ma partie
 

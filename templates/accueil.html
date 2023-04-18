@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="/static/styles/myMap.css">
 
 </head>
-< onload="fetchPanier()">
+<body onload="fetchPanier()">
 
 <!-- BARRE DE NAVIGATION EN HAUT -->
 
@@ -156,14 +156,85 @@
                             </td>
                         </tr>
                     </div>
-
                 {% endfor %}
         </tbody>
     </table>
+    <br/>
+    <h3>Panier :</h3>
+    <div id="cart-container">
+        <div id="product-container"></div>
+        <button id="buy" onclick="acheterItems()">Acheter</button>
+        <button id="delete-button" onclick="deleteItems()">Supprimer</button>
+    </div>
 
-    <!--BARRE DE RECHERCHE-->
+    </div>
+    <!--JS PANIER ET RECHERCHE #NADIR-->
 
     <script>
+    function displayItem(id, item, price) {
+        var itemcontainer = document.getElementById('product-container')
+        var newItem = document.createElement('div')
+        newItem.innerText = "ID : " + id + ' **** Produit : ' + item + ' **** Prix: ' + price + '$'
+        itemcontainer.appendChild(newItem)
+    }
+
+
+    function onButton(itemId, itemName, itemPrice) {
+        fetch('/add-to-panier/', {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json"
+                    },
+            body: JSON.stringify({
+                id : itemId,
+                item: itemName,
+                price : itemPrice
+        })
+    })
+        displayItem(itemId, itemName, itemPrice)
+    }
+
+    function fetchPanier() {
+        fetch('/panier').then(function (response) {
+            return response.json()
+        }).then(function (data) {
+            let pids = data.pide
+            let noms = data.nom
+            let prix = data.prix
+
+            for (let i = 0; i < pids.length; i++) {
+                displayItem(pids[i], noms[i], prix[i])
+            }
+        });
+    }
+
+    function deleteItems() {
+        fetch(`/delete_panier/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json()).then(data => {
+            if (data.status === 200) {
+                window.location.reload();
+            }
+        })
+    }
+
+    function acheterItems() {
+        fetch(`/acheter-panier/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(data => {
+            if (data.status === 200) {
+                window.location.reload();
+            }
+        })
+    }
+
     function search() {
         var input = document.getElementById("searchbar");
         var upper = input.value.toUpperCase();
@@ -190,14 +261,8 @@
           search();
     });
     </script>
-    </div>
-    <h3>Panier :</h3>
-    <div id="cart-container">
-        <div id="product-container"></div>
-        <button id="buy-button" onclick="acheterItems()">Acheter</button>
-        <button id="delete-button" onclick="deleteItems()">Supprimer</button>
-    </div>
 
+    {#PANIER#}
 
 
 <!--LIBRAIRIES UTILISÉS-->
