@@ -57,20 +57,24 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-              <div class="">
-                <label for="email">Adresse courriel</label>
-                <input type="email" id="email" name="email" placeholder="Entrer votre adresse courriel">
+              <div class="modal-body">
+              <div class="container d-flex justify-content-center">
+                <form>
+                  <div class="form-group">
+                    <label for="email">Adresse courriel</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Entrer votre adresse courriel">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Entrer votre mot de passe">
+                  </div>
+                  <div class="form-group text-center">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="button" onclick="validateLoginForm()" style="margin-top: 10px;">Connexion</button>
+                  </div>
+                </form>
               </div>
-              <div class="">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" placeholder="Entrer votre mot de passe">
-                {% if error_msg %}
-                    <div class="alert alert-danger">{{ error_msg }}</div>
-                {% endif %}
-              </div>
-          <button type="submit" onclick="loginjs()">Connexion</button>
-          </div>
+              <div id="error-msg" class="text-danger text-center mt-3"></div>
+            </div>
         </div>
       </div>
     </div>
@@ -113,6 +117,7 @@
         </div>
       </div>
     </div>
+
     <!-- Fonds d'écran -->
 
 <div class="hero">

@@ -13,10 +13,6 @@ function loginjs() {
 
 	var email = document.getElementById("email").value
 	var password = document.getElementById("password").value
-	if (password === "") {
-		stop()
-		}
-	console.log(email, password, "JOJOJS")
 
 	fetch("/Connexion", {
 		method: "POST",
@@ -45,6 +41,23 @@ function loginjs() {
 			displayError(data.status)
 		}
 	})
+}
+function validateLoginForm() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var errorMsg = document.getElementById("error-msg");
+
+    if (!email) {
+        errorMsg.innerHTML = "Veuillez entrer une adresse courriel";
+        return;
+    }
+
+    if (!password) {
+        errorMsg.innerHTML = "Veuillez entrer un mot de passe";
+        return;
+    }
+
+    loginjs();
 }
 
 function signupjs() {
