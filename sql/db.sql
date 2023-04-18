@@ -38,7 +38,7 @@ CREATE TABLE Panier (
 
 CREATE TABLE Commandes (
   ID_Commande INTEGER AUTO_INCREMENT,
-  ID_Client IN,
+  ID_Client INt,
   PRIMARY KEY (ID_Commande),
   FOREIGN KEY (ID_Client) REFERENCES Clients(ID_Client)
 );
@@ -54,14 +54,8 @@ create table clients
     MotDePasse     varchar(255) not null
 );
 
-drop table notes;
 
-# INDEX
-create index ID_Client
-    on notes (ID_Client);
-
-create index ID_Produit
-    on notes (ID_Produit);
+# INDEX Filali999. soyem99@hotmail.com
 
 create index ID_Client
     on panier (ID_Client);
@@ -124,8 +118,13 @@ DELIMITER ;
 
 call check_password_format('Filali999.')
 
-# réviser texte
-# filmer ma partie
 
-# update panier de nadir
+INSERT INTO images (ID_Image, ID_Produit, URLImage) VALUES
+(1, 1, 'https://example.com/images/bijou1.jpg'),
+(2, 2, 'https://example.com/images/bijou1_2.jpg'),
+(3, 3, 'https://example.com/images/bijou2.jpg'),
+(4, 4, 'https://example.com/images/bijou3.jpg'),
+(6, 5, 'https://example.com/images/bijou3_2.jpg'),
+(7, 6, 'https://example.com/images/bijou4.jpg'),
+(8, 7, 'https://example.com/images/bijou5.jpg');
 

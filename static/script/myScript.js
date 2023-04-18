@@ -26,7 +26,7 @@ function loginjs() {
 	}).then(function (response) {
 		return response.json()
 	}).then(function (data) {
-		if (data.status == 200) {
+		if (data.status === 200) {
 			// Connexion réussie, stocker les informations d'authentification dans un cookie
 			setCookie('email', email, 7);
 			setCookie('password', password, 7);
@@ -141,7 +141,7 @@ function signupjs() {
 	}).then(function (response) {
 		return response.json()
 	}).then(function (data) {
-		if (data.status == 200) {
+		if (data.status === 200) {
 			window.location.href = "/"
 			console.log("tu es enregistré")
 			// hide the login button
@@ -169,68 +169,68 @@ function logoutjs() {
 }
 
 
-function displayItem(id, item, price) {
-	var itemcontainer = document.getElementById('product-container')
-	var newItem = document.createElement('div')
-	newItem.innerText = "ID : " + id + ' **** Produit : ' + item + ' **** Prix: ' + price + '$'
-	itemcontainer.appendChild(newItem)
-	}
-
-
-function onButton(itemId, itemName, itemPrice) {
-   fetch('/add-to-panier/', {
-	   method: "POST",
-	   headers: {
-		   "Content-Type": "application/json"
-				},
-	   body: JSON.stringify({
-		   id : itemId,
-		   item: itemName,
-		   price : itemPrice
-	})
-})
-  	displayItem(itemId, itemName, itemPrice)
-}
-
-function fetchPanier() {
-	fetch('/panier').then(function (response) {
-		return response.json()
-	}).then(function (data) {
-		let pids = data.pide
-		let noms = data.nom
-		let prix = data.prix
-
-		for (let i = 0; i < pids.length; i++) {
-			displayItem(pids[i], noms[i], prix[i])
-		}
-	});
-}
-
-function deleteItems() {
-	fetch(`/delete_panier/`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	}).then(response => response.json()).then(data => {
-		if (data.status === 200) {
-			window.location.reload();
-		}
-	})
-}
-
-function acheterItems() {
-	fetch(`/acheter-panier/`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	}).then(response => response.json()).then(data => {
-		if (data.status === 200) {
-			window.location.reload();
-		}
-	})
-}
+// function displayItem(id, item, price) {
+// 	var itemcontainer = document.getElementById('product-container')
+// 	var newItem = document.createElement('div')
+// 	newItem.innerText = "ID : " + id + ' **** Produit : ' + item + ' **** Prix: ' + price + '$'
+// 	itemcontainer.appendChild(newItem)
+// 	}
+//
+//
+// function onButton(itemId, itemName, itemPrice) {
+//    fetch('/add-to-panier/', {
+// 	   method: "POST",
+// 	   headers: {
+// 		   "Content-Type": "application/json"
+// 				},
+// 	   body: JSON.stringify({
+// 		   id : itemId,
+// 		   item: itemName,
+// 		   price : itemPrice
+// 	})
+// })
+//   	displayItem(itemId, itemName, itemPrice)
+// }
+//
+// function fetchPanier() {
+// 	fetch('/panier').then(function (response) {
+// 		return response.json()
+// 	}).then(function (data) {
+// 		let pids = data.pide
+// 		let noms = data.nom
+// 		let prix = data.prix
+//
+// 		for (let i = 0; i < pids.length; i++) {
+// 			displayItem(pids[i], noms[i], prix[i])
+// 		}
+// 	});
+// }
+//
+// function deleteItems() {
+// 	fetch(`/delete_panier/`, {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/json'
+// 		}
+// 	}).then(response => response.json()).then(data => {
+// 		if (data.status === 200) {
+// 			window.location.reload();
+// 		}
+// 	})
+// }
+//
+// function acheterItems() {
+// 	fetch(`/acheter-panier/`, {
+// 		method: 'POST',
+// 		headers: {
+// 			'Content-Type': 'application/json'
+// 		}
+// 	}).then(response => response.json()).then(data => {
+// 		if (data.status === 200) {
+// 			window.location.reload();
+// 		}
+// 	})
+// }
 
 function search() {
 	var input = document.getElementById("searchbar");
