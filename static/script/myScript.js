@@ -13,7 +13,9 @@ function loginjs() {
 
 	var email = document.getElementById("email").value
 	var password = document.getElementById("password").value
-
+	if (password === "") {
+		stop()
+		}
 	console.log(email, password, "JOJOJS")
 
 	fetch("/Connexion", {
@@ -70,7 +72,7 @@ function signupjs() {
 		return response.json()
 	}).then(function (data) {
 		if (data.status == 200) {
-			window.location.href = "accueil.html"
+			window.location.href = "/"
 			console.log("tu es enregistré")
 			// hide the login button
 			window.location.reload();
