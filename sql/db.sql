@@ -223,5 +223,5 @@ insert into produits (ID_Produit, NomProduit, Description, Prix, StockDisponible
 (96, 'Bracelet en argent et grenat', 'Bracelet en argent sterling 925 serti de grenats de qualité AAA. Un bijou élégant pour toutes les occasions.', 799.99, 12, 1),
 (97, 'Boucles d''oreilles en or blanc et saphir', 'Boucles d''oreilles en or blanc 18 carats serties de saphirs de qualité AAA. Un accessoire étincelant pour une soirée élégante.', 2399.99, 5, 1),
 (98, 'Collier en or blanc et rubis', 'Collier en or blanc 18 carats serti de rubis de qualité AAA. Un bijou élégant pour toutes les occasions.', 1999.99, 9, 2),
-(99, 'Bague en argent et zircon', 'Bague en argent sterling 925 sertie de zircons cubiques. Un bijou simple mais élégant qui s''adapte à tous les styles.', 149.99, 30, 1),
+(99, 'Bague en argent et zircon', 'Bague en argent sterling 925 sertie de zircons cubiques. Un bijou simple mais élégant qui s''adapte à tous les styles.', 149.99, 30, 1);
 ;

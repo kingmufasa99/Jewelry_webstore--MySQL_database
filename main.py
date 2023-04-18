@@ -64,14 +64,6 @@ def select_quantite(itemId):
     return quantite
 
 
-def update_produit_stock(pid):
-    trigger = """CREATE TRIGGER update_produit_stock AFTER INSERT ON commandes FOR EACH ROW
-    BEGIN
-        UPDATE produits p SET StockDisponible = (StockDisponible - (SELECT quantite FROM Panier WHERE ID_Produit = p.ID_Produit)) WHERE p.ID_Produit = {pid};
-    END;"""
-    mycursor.execute(trigger)
-    return trigger
-
 def hash_password(password):
 	return sha256_crypt.hash(password)
 
