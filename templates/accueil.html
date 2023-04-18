@@ -91,13 +91,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <!--AJOUTER DES ALERTES-->
+          <div class="container d-flex justify-content-center">
+            <form>
               <div class="form-group">
                 <label for="lastname">Nom de famille</label>
                 <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Entrer votre nom de famille">
               </div>
               <div class="form-group">
-                <label for="firstname">Nom </label>
+                <label for="firstname">Prénom </label>
                 <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Entrer votre prénom">
               </div>
               <div class="form-group">
@@ -112,11 +113,17 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" class="form-control" id="new_password" name="password" placeholder="Entrer votre mot de passe">
               </div>
-              <button type="submit" onclick="signupjs()">Inscris-toi</button>
+              <div class="form-group text-center">
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="button" onclick="validateSignupForm()" style="margin-top: 10px;">S'inscrire</button>
+              </div>
+            </form>
           </div>
+          <div id="serror-msg" class="text-danger text-center mt-3"></div>
+        </div>
         </div>
       </div>
     </div>
+
 
     <!-- Fonds d'écran -->
 

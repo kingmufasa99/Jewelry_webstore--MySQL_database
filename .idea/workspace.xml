@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19dc10ae-5627-44b4-9672-babcd2592bc0" name="Changes" comment="feat: ajout app Connexion avec chiffrement" />
+    <list default="true" id="19dc10ae-5627-44b4-9672-babcd2592bc0" name="Changes" comment="feat: alertes champs vide ajouté">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/script/myScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/script/myScript.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accueil.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accueil.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +92,7 @@
       <recent name="C:\Users\mfila\OneDrive\Bureau\BD_projects\bijoux_bd\sql" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Flask server.Flask (main.py)">
     <configuration name="env_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="bijoux_bd" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -168,7 +174,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -178,8 +184,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Flask server.Flask (main.py)" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.env_test" />
       </list>
     </recent_temporary>
@@ -205,6 +211,7 @@
       <workItem from="1681419604606" duration="201000" />
       <workItem from="1681450272981" duration="23443000" />
       <workItem from="1681571059287" duration="55856000" />
+      <workItem from="1681779455368" duration="10159000" />
     </task>
     <task id="LOCAL-00001" summary="feat: update sql et api">
       <created>1681114760123</created>
@@ -311,7 +318,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681696972516</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat: ajout app Connexion avec chiffrement">
+      <created>1681780151360</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1681780151360</updated>
+    </task>
+    <task id="LOCAL-00017" summary="feat: alertes champs vide ajouté">
+      <created>1681784552578</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1681784552578</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -377,7 +398,6 @@
     <MESSAGE value="feat: commencement de 5 définitions dans main.py" />
     <MESSAGE value="fix: correction .py" />
     <MESSAGE value="feat: ajout du loginModal dans html" />
-    <MESSAGE value="feat: ajout app Connexion avec chiffrement" />
     <MESSAGE value="feat: ajout liste de produits (html+main)" />
     <MESSAGE value="feat: login marche maintenant, il est testé" />
     <MESSAGE value="feat: suppression du .idea. Debuggage de Inscription en cours" />
@@ -387,12 +407,14 @@
     <MESSAGE value="fix: Déconnexion réparé, regarder le readme" />
     <MESSAGE value="feat: amélioration css, manque alertes" />
     <MESSAGE value="feat: manque alertes" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: manque alertes" />
+    <MESSAGE value="feat: ajout app Connexion avec chiffrement" />
+    <MESSAGE value="feat: alertes champs vide ajouté" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: alertes champs vide ajouté" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/bijoux_bd$Flask__env_test_py_.coverage" NAME="Flask (env_test.py) Coverage Results" MODIFIED="1681592464294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/bijoux_bd$env_test.coverage" NAME="env_test Coverage Results" MODIFIED="1681594665184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bijoux_bd$main.coverage" NAME="main Coverage Results" MODIFIED="1681770913686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/bijoux_bd$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1681724257109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/bijoux_bd$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1681787750545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

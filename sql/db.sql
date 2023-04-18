@@ -132,4 +132,8 @@ DELIMITER ;
 call check_password_format('Filali999.')
 
 # Ajouter notes a la boucle
-# ajouter alertes
+# ajouter alertes inscription
+# finir draw.io
+# réviser texte
+# filmer ma partie
+

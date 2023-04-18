@@ -60,6 +60,63 @@ function validateLoginForm() {
     loginjs();
 }
 
+function validateSignupForm() {
+    var new_email = document.getElementById("new_email").value;
+    var new_password = document.getElementById("new_password").value;
+    var firstname = document.getElementById("firstname").value;
+    var lastname = document.getElementById("lastname").value;
+    var address = document.getElementById("address").value;
+    var serrorMsg = document.getElementById("serror-msg");
+
+    if (!new_email) {
+        serrorMsg.innerHTML = "Veuillez entrer une adresse courriel";
+        return false;
+    } else if (!isValidEmail(new_email)) {
+        serrorMsg.innerHTML = "Veuillez entrer une adresse courriel valide";
+        return false;
+    }
+
+    if (!new_password) {
+        serrorMsg.innerHTML = "Veuillez entrer un mot de passe";
+        return false;
+    } else if (!isValidPassword(new_password)) {
+        serrorMsg.innerHTML = "Veuillez entrer un mot de passe valide (au moins 8 caractères)";
+        return false;
+    }
+
+    if (!firstname) {
+        serrorMsg.innerHTML = "Veuillez entrer votre prénom";
+        return false;
+    }
+
+    if (!lastname) {
+        serrorMsg.innerHTML = "Veuillez entrer votre nom de famille";
+        return false;
+    }
+
+    if (!address) {
+        serrorMsg.innerHTML = "Veuillez entrer votre adresse";
+        return false;
+    }
+
+    // If all fields are valid
+    signupjs();
+    return true;
+}
+
+// Function to validate email
+function isValidEmail(email) {
+    // Use a regular expression to validate email format
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Function to validate password
+function isValidPassword(password) {
+    return password.length >= 8;
+}
+
+
 function signupjs() {
 	console.log("on s'enregistre")
 

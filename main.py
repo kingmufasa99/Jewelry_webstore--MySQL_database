@@ -72,20 +72,23 @@ def verify_password(password, actual):
 
 
 def insert_user(cid: int, firstname: str, lastname: str, new_email: str, address: str, new_password: str):
+	try:
+		procedure_email = f"call check_email_format('{new_email}');"
+		mycursor.execute(procedure_email)
+		hashed_password = hash_password(new_password)
 
-	procedure_email = f"call check_email_format('{new_email}');"
-	mycursor.execute(procedure_email)
-	hashed_password = hash_password(new_password)
+		procedure_pwd = f"call check_password_format('{new_password}');"
+		mycursor.execute(procedure_pwd)
 
-	procedure_pwd = f"call check_password_format('{new_password}');"
-	mycursor.execute(procedure_pwd)
+		sql_insert = "INSERT INTO clients (ID_Client, Nom, Prenom, AdresseEmail, AdressePostale, MotDePasse) VALUES (%s, %s, %s, %s, %s, %s);"
+		values = (cid, firstname, lastname, new_email, address, hashed_password)
 
-	sql_insert = "INSERT INTO clients (ID_Client, Nom, Prenom, AdresseEmail, AdressePostale, MotDePasse) VALUES (%s, %s, %s, %s, %s, %s);"
-	values = (cid, firstname, lastname, new_email, address, hashed_password)
+		mycursor.execute(sql_insert, values)
+		mydb.commit()
 
-	mycursor.execute(sql_insert, values)
-	mydb.commit()
-
+	except pymysql.err.OperationalError as e:
+		error_msg = str(e)
+		return render_template('accueil.html', error_msg=error_msg)
 
 
 def check_user_password(email, password):
