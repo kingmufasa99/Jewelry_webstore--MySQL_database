@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        .logo{
-            color: whitesmoke;
-        }
+        #cart-container {
+            position: fixed;
+              bottom: 0;
+              right: 0;
+              display: flex;
+              justify-content: flex-end;
+              align-items: center;
+              width: 100%;
+              max-width: 500px;
+              background-color: black;
+              border: 1px solid #ccc;
+              padding: 10px;
+    }
     </style>
     <link
       rel="stylesheet"
@@ -29,7 +39,7 @@
 
 <!-- BARRE DE NAVIGATION EN HAUT -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -111,6 +121,7 @@
         </div>
       </div>
     </div>
+
     <!-- Fonds d'écran -->
 
     <div class="hero">
@@ -138,7 +149,7 @@
                             <td>{{ col[2] }}</td>
                             <td>{{ col[3] }}</td>
                             <td>{{ col[4] }}</td>
-                            <td><img src="https://images.pexels.com/photos/6019185/pexels-photo-6019185.jpeg" alt="blt" style="width:180px;height:142px;">
+                            <td><img src="https://www.informatiquegifs.com/gifs/images/bijoux/3.gif" alt="blt" style="width:180px;height:142px;">
                             </td>
                         </tr>
                     </div>
@@ -147,7 +158,6 @@
         </tbody>
     </table>
     <br/>
-    <h3>Panier :</h3>
     <div id="cart-container">
         <div id="product-container"></div>
         <button id="buy" onclick="acheterItems()">Acheter</button>
@@ -246,6 +256,7 @@
               e.preventDefault();
               search();
         });
+
     </script>
 <!--LIBRAIRIES UTILISÉS-->
 

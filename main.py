@@ -18,6 +18,13 @@ mydb = pymysql.connect(
 mycursor = mydb.cursor()
 
 
+def select_id_panier():
+    query = f"SELECT ID_Produit FROM Panier;"
+    mycursor.execute(query)
+    pids = [entry for entry in mycursor.fetchall()]
+    return pids
+
+
 def select_Id():
     req = "SELECT ID_Produit FROM Panier;"
     mycursor.execute(req)
@@ -56,6 +63,24 @@ def select_quantite(itemId):
     return quantite
 
 
+def update_produit_stock(pid):
+    trigger = """CREATE TRIGGER update_produit_stock AFTER INSERT ON commandes FOR EACH ROW
+    BEGIN
+        UPDATE produit p SET StockDisponible = (StockDisponible - (SELECT quantite FROM Panier WHERE ID_Produit = p.ID_Produit) ) WHERE p.ID_Produit = {pid};
+    END;"""
+    mycursor.execute(trigger)
+    return trigger
+
+
+# def after_insert_commandes(cid):
+#     trigger = """CREATE TRIGGER after_insert_commandes AFTER INSERT ON Commandes FOR EACH ROW
+#                     BEGIN
+#                         DELETE FROM Panier WHERE ID_Client = %s;;
+#                     END;"""
+#     mycursor.execute(trigger, cid)
+#     return trigger
+
+
 def hash_password(password):
     return sha256_crypt.hash(password)
 
@@ -77,7 +102,7 @@ def insert_user(cid: int, firstname: str, lastname: str, new_email: str, address
 
 def check_user_password(email, password):
     request = f"SELECT MotDePasse FROM clients WHERE AdresseEmail = '{email}';"
-
+    v = email
     mycursor.execute(request)
 
     hashed_password = mycursor.fetchone()[0]
@@ -89,7 +114,7 @@ def check_user_password(email, password):
 def Accueil():
     sql = "SELECT * FROM Produits"
     mycursor.execute(sql)
-    products = mycursor.fetchmany(size=9)
+    products = mycursor.fetchmany(size=100)
     return render_template('accueil.html', products=products)
 
 
@@ -218,14 +243,16 @@ def acheter_panier():
     global response
     cid = get_cid()
     pid = session.get("id")
-    print(pid)
     quantite = select_quantite(pid)
-    print(quantite)
 
     try:
         req = f"INSERT INTO Commandes (ID_Client) VALUES ('{cid}')"
         mycursor.execute(req)
         mydb.commit()
+        if req:
+            delete_query = f"DELETE FROM Panier WHERE ID_Client = '{cid}';"
+            mycursor.execute(delete_query)
+            mydb.commit()
     except Exception as e:
         print("erreur d'insertion dans Commandes:", e)
         response = {
