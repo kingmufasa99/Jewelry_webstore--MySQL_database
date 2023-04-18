@@ -7,7 +7,7 @@ SELECT * FROM Produits;
 select * from panier;
 select * from categories;
 select * from produits;
-select * from notes;
+select * from images;
 
 create table produits
 (
@@ -38,7 +38,7 @@ CREATE TABLE Panier (
 
 CREATE TABLE Commandes (
   ID_Commande INTEGER AUTO_INCREMENT,
-  ID_Client INT,
+  ID_Client IN,
   PRIMARY KEY (ID_Commande),
   FOREIGN KEY (ID_Client) REFERENCES Clients(ID_Client)
 );
@@ -54,14 +54,7 @@ create table clients
     MotDePasse     varchar(255) not null
 );
 
-create table notes
-(
-    ID_Client  int,
-    ID_Produit int,
-    Note       int not null,
-    foreign key (ID_Client) references clients (ID_Client),
-    foreign key (ID_Produit) references produits (ID_Produit)
-);
+drop table notes;
 
 # INDEX
 create index ID_Client
@@ -131,9 +124,9 @@ DELIMITER ;
 
 call check_password_format('Filali999.')
 
-# Ajouter notes a la boucle
-# ajouter alertes inscription
 # finir draw.io
 # réviser texte
 # filmer ma partie
+
+# update panier de nadir
 

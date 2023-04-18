@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="19dc10ae-5627-44b4-9672-babcd2592bc0" name="Changes" comment="feat: alertes champs vide ajouté">
+    <list default="true" id="19dc10ae-5627-44b4-9672-babcd2592bc0" name="Changes" comment="feat: alertes champs vide pour inscription aussi ajouté">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/db.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/script/myScript.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/script/myScript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accueil.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accueil.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +208,7 @@
       <workItem from="1681419604606" duration="201000" />
       <workItem from="1681450272981" duration="23443000" />
       <workItem from="1681571059287" duration="55856000" />
-      <workItem from="1681779455368" duration="10159000" />
+      <workItem from="1681779455368" duration="13121000" />
     </task>
     <task id="LOCAL-00001" summary="feat: update sql et api">
       <created>1681114760123</created>
@@ -332,7 +329,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681784552578</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="feat: alertes champs vide pour inscription aussi ajouté">
+      <created>1681790269907</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1681790269907</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -409,12 +413,13 @@
     <MESSAGE value="feat: manque alertes" />
     <MESSAGE value="feat: ajout app Connexion avec chiffrement" />
     <MESSAGE value="feat: alertes champs vide ajouté" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: alertes champs vide ajouté" />
+    <MESSAGE value="feat: alertes champs vide pour inscription aussi ajouté" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: alertes champs vide pour inscription aussi ajouté" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/bijoux_bd$Flask__env_test_py_.coverage" NAME="Flask (env_test.py) Coverage Results" MODIFIED="1681592464294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/bijoux_bd$env_test.coverage" NAME="env_test Coverage Results" MODIFIED="1681594665184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bijoux_bd$main.coverage" NAME="main Coverage Results" MODIFIED="1681770913686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/bijoux_bd$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1681787750545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/bijoux_bd$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1681792990043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
