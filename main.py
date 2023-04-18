@@ -19,6 +19,13 @@ mydb = pymysql.connect(
 mycursor = mydb.cursor()
 
 
+def select_id_panier():
+    query = f"SELECT ID_Produit FROM Panier;"
+    mycursor.execute(query)
+    pids = [entry for entry in mycursor.fetchall()]
+    return pids
+
+
 def select_Id():
     req = "SELECT ID_Produit FROM Panier;"
     mycursor.execute(req)
@@ -56,6 +63,14 @@ def select_quantite(itemId):
     quantite = mycursor.fetchone()
     return quantite
 
+
+def update_produit_stock(pid):
+    trigger = """CREATE TRIGGER update_produit_stock AFTER INSERT ON commandes FOR EACH ROW
+    BEGIN
+        UPDATE produits p SET StockDisponible = (StockDisponible - (SELECT quantite FROM Panier WHERE ID_Produit = p.ID_Produit)) WHERE p.ID_Produit = {pid};
+    END;"""
+    mycursor.execute(trigger)
+    return trigger
 
 def hash_password(password):
 	return sha256_crypt.hash(password)
