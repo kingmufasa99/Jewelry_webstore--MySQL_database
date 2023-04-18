@@ -20,8 +20,8 @@
       crossorigin="anonymous"
     />
     <script src="../static/script/myScript.js"></script>
-    <link rel="stylesheet" href="/static/styles/myMap.css">
-    <link rel="stylesheet" href="/static/script/myScript.js">
+    <link rel="stylesheet" href="../static/styles/myMap.css">
+    <title>Bijouterie du carat</title>
 
 
 </head>
@@ -49,7 +49,6 @@
 
     <!-- LOGIN -->
 
-    </div>
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -114,7 +113,7 @@
     </div>
     <!-- Fonds d'écran -->
 
-<div class="hero">
+    <div class="hero">
 
     <!-- LISTE DE PRODUITS -->
 
@@ -125,7 +124,7 @@
                 <th scope="col">Acheter</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Description</th>
-                <th scope="col">Prix</th>
+                <th scope="col">Prix ($)</th>
                 <th scope="col">Stock</th>
                 <th scope="col">Image</th>
             </tr>
@@ -151,13 +150,103 @@
     <h3>Panier :</h3>
     <div id="cart-container">
         <div id="product-container"></div>
-        <button id="buy-button" onclick="acheterItems()">Acheter</button>
+        <button id="buy" onclick="acheterItems()">Acheter</button>
         <button id="delete-button" onclick="deleteItems()">Supprimer</button>
     </div>
 
-</div>
+    </div>
+
+    <script>
+        function displayItem(id, item, price) {
+            var itemcontainer = document.getElementById('product-container')
+            var newItem = document.createElement('div')
+            newItem.innerText = "ID : " + id + ' **** Produit : ' + item + ' **** Prix: ' + price + '$'
+            itemcontainer.appendChild(newItem)
+        }
 
 
+        function onButton(itemId, itemName, itemPrice) {
+            fetch('/add-to-panier/', {
+                method: "POST",
+                headers: {
+                   "Content-Type": "application/json"
+                        },
+                body: JSON.stringify({
+                    id : itemId,
+                    item: itemName,
+                    price : itemPrice
+            })
+        })
+            displayItem(itemId, itemName, itemPrice)
+        }
+
+        function fetchPanier() {
+            fetch('/panier').then(function (response) {
+                return response.json()
+            }).then(function (data) {
+                let pids = data.pide
+                let noms = data.nom
+                let prix = data.prix
+
+                for (let i = 0; i < pids.length; i++) {
+                    displayItem(pids[i], noms[i], prix[i])
+                }
+            });
+        }
+
+        function deleteItems() {
+            fetch(`/delete_panier/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json()).then(data => {
+                if (data.status === 200) {
+                    window.location.reload();
+                }
+            })
+        }
+
+        function acheterItems() {
+            fetch(`/acheter-panier/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+                .then(data => {
+                if (data.status === 200) {
+                    window.location.reload();
+                }
+            })
+        }
+
+        function search() {
+            var input = document.getElementById("searchbar");
+            var upper = input.value.toUpperCase();
+            var collonne = document.getElementById("table").getElementsByTagName("tr");
+
+              for (var i = 0; i < collonne.length; i++) {
+                var elements = collonne[i].getElementsByTagName("td");
+                var valide = false;
+                for (var j = 0; j < elements.length; j++) {
+                  var element = elements[j];
+                  if (element) {
+                    var text = element.textContent || element.innerText;
+                    if (text.toUpperCase().indexOf(upper) > -1) {
+                      valide = true;
+                      break;
+                    }
+                  }
+                }
+                collonne[i].style.display = valide ? "" : "none";
+              }
+            }
+            document.querySelector("form").addEventListener("submit", function(e) {
+              e.preventDefault();
+              search();
+        });
+    </script>
 <!--LIBRAIRIES UTILISÉS-->
 
     <script
