@@ -76,6 +76,9 @@ CREATE TABLE Panier (
   FOREIGN KEY (ID_Produit) REFERENCES Produits(ID_Produit)
 );
 
+INSERT INTO Panier(ID_CLient, ID_Produit)
+VALUES (1,1),(1,2),(1,3),(2,5),(2,7);
+
 -- creation d'un tableau commentaires
 CREATE TABLE Commentaires (
   ID_Commentaire INT AUTO_INCREMENT,

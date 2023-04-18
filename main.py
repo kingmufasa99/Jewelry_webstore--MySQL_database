@@ -13,8 +13,8 @@ app.secret_key = 'mysecretkey'
 mydb = pymysql.connect(
     host="localhost",
     user=os.getenv('DBPUSER'),
-    password=os.getenv('DBPASSWORD'),
-    database="bijoux",
+    password=os.getenv(''),
+    database="projetbijoux3",
 )
 mycursor = mydb.cursor()
 
@@ -80,7 +80,7 @@ def insert_user(cid: int, firstname: str, lastname: str, new_email: str, address
 
 
 def check_user_password(email, password):
-    request = f"SELECT MotDePasse FROM clients WHERE AdresseEmail = '{email}';"
+    request = f"SELECT s FROM clients WHERE AdresseEmail = '{email}';"
     v = email
     mycursor.execute(request)
 
